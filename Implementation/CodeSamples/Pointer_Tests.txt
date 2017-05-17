@@ -1,0 +1,71 @@
+Types
+---
+int* foo; // foo is a pointer to an integer // Y
+double** foo; // foo is a pointer to a pointer to a double // Y
+
+Arrays
+---
+int foo[];              foo is an array of ints // Y
+int foo[10];            foo is an array of 10 ints // Y
+int (*foo)[];           foo is a pointer to an array of ints 
+int *foo[];             foo is an array of pointers to integers // Y
+
+Functions
+---
+int foo();              foo is a function returning an int // Y
+char foo(int a, int b); foo is a function inputing an int, a, and an int, b, and returning an char // Y
+int (*foo)();           foo is a pointer to a function returning an int // Y
+int *foo();             foo is a function returning a pointer to an integer // Y
+int *foo(int a, float b); foo is a function taking an int and a float, returning a pointer to an integer // Y
+int (*foo)(int a, float b); foo is a a pointer to function returning an integer // Y
+
+Keywords
+---
+int* const* foo; foo is a pointer to a constant pointer to an integer // Y
+const int foo; foo is a constant integer // Y
+int const foo; SAME as above // Y
+const int *foo; foo is a pointer to a constant integer // Y
+int const *foo; SAME as above // Y
+int *const foo; foo is a constant pointer to an integer // Y
+int* volatile foo;
+int* static foo;
+int* extern foo;
+
+//TODO
+Recursion
+---
+
+1
+---
+int foo[];            foo is an array of ints
+int foo[][];            foo is an array of arrays of ints
+int foo[][][];            foo is an array of arrays of arrays of ints
+
+2
+---
+int* foo;
+int** foo;
+int*** foo;
+
+
+Tests
+--
+http://c-faq.com/decl/spiral.anderson.html
+char *str[10];          str is an array 10 of pointers to char
+char *(*fp)( int, float *); fp is a pointer to a function passing an int and a pointer to float returning a pointer to a char
+void (*signal(int, void (*fp)(int)))(int); signal is a function passing an int and a pointer to a function passing an int returning nothing (void) returning a pointer to a function passing an int returning nothing (void)
+---
+int (**foo)[];          foo is a pointer to a pointer to an array of ints
+int (**foo)();          foo is a pointer to a pointer to a function returning an int
+int *(*foo)[];          foo is a pointer to an array of pointers to int
+int (*foo)[][];         foo is a pointer to an array of arrays of ints
+int *(*foo)();         	foo is  a pointer to a function returning a pointer to int
+int (*foo)()();         foo is a pointer to a function returning a function returning an int
+int **foo[];            foo is an array of pointers to int pointers
+int (*foo[])[];         an array of pointers to arrays of ints
+int (*foo[])();         an array of pointers to functions returning an int
+int *foo[][];           an array of arrays of int pointers
+int foo[][][];          an array of arrays of arrays of ints
+int **foo();            a function returning a pointer to an int pointer
+int (*foo())[];         a function returning a pointer to an array of ints
+int (*foo())();         a function returning a pointer to a function returning an int

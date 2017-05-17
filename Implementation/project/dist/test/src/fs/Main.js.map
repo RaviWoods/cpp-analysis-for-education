@@ -1,0 +1,1 @@
+{"version":3,"sources":["../../../../src/fs/Main.fs"],"names":[],"mappings":";;;;;;;;;AAMI;AAAA;AAA2B;;AAG3B","file":"Main.js","sourcesContent":["module App.Main\n\nopen Fable.Import\nopen App.Message\n\nlet main () =\n    Browser.console.log message\n\ndo\n    main ()\n"]}

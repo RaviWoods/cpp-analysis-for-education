@@ -1,0 +1,1 @@
+{"version":3,"sources":["../../../test/Util.fs"],"names":[],"mappings":";;;;;;;;;;;AAQQ;AAAA,uBAAuB,mCAAvB;AAA0C","file":"Util.js","sourcesContent":["namespace Test\n\n[<AutoOpen>]\nmodule Util =\n    open Fable.Core.Testing\n\n    // Convenience method\n    let equal (expected: 'T) (actual: 'T) =\n        Assert.AreEqual(true, (expected = actual))\n"]}

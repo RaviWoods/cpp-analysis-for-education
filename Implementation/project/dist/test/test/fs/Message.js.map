@@ -1,0 +1,1 @@
+{"version":3,"sources":["../../../../test/fs/Message.fs"],"names":[],"mappings":";;;;;;AAAA;AAOQ,oCACuB;AAAA;AAAoB,KAD3C;AAA6B,CAPrC,C","file":"Message.js","sourcesContent":["namespace Test\n\nopen Fable.Core.Testing\n\n[<TestFixture>]\nmodule Message =\n    [<Test>]\n    let ``message should be correct`` () =\n        App.Message.message |> equal \"Hello world!\"\n"]}
