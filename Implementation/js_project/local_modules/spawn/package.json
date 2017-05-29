@@ -1,0 +1,18 @@
+{
+  "name": "spawn",
+  "description": "Seamless multi-process worker management",
+  "version": "0.0.1",
+  "author": "Mirko Kiefer <mail@mirkokiefer.com> (http://www.mirkokiefer.com)",
+  "main": "spawn",
+  "directories": { "test": "./test"},
+  "dependencies": {
+    "webworker": "~0.8.4",
+    "underscore": "~1.8.3"
+  },
+  "devDependencies": {
+    "vows": "*"
+  },
+  "engines": {
+    "node": "*"
+  }
+}

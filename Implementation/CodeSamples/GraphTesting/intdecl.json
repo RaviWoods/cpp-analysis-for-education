@@ -1,0 +1,10 @@
+{
+	"declarations": [{
+		"name": "foo",
+		"class": "basic",
+		"line": 2,
+		"data": {
+			"type": "CXType_Int"
+		}
+	}]
+}

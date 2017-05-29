@@ -115,3 +115,32 @@ In addition, if time allows, I aim to perform a similar task with C++ data struc
 	7. If the range of a loop counter will access all the elements of the array, except the last element, a warning should be shown.
 6. (If time allows) Show the same warnings in (5), but when vectors and iterators are used.
 7. The final solution should be easy to use, with no manual or tutorial needed.
+
+---
+
+UI are crucial to this project, since the visual output of the project is the sole aid given to the user. Firstly, the requirements concern the usability of the final product, to make sure that the user can see the graph when they need to. In addition, they concern the look of the graphs themselves, so the user can better understand C++, and their own code, as a result of use of this product.
+
+From these requirements, we can see that the final product must be clearly pointed toward use as a plugin within other code editors. In addition, the final product must cover enough of a range of declarations to genuinely help novice programmers with C++. Finally, the product must visualise those declarations adeptly and helpfully, even for those who may have never written C++ before. While many of these requirements may be obvious given the context, they are useful reminders when looking at what tools to use, and when we're testing the products (at both intermediate and final stages). As well as these requirements, there are some further pieces of extension work that were identified as being useful to novice programmers:
+
+Tech
+Code Editor
+Save/Open/Type Code
+
+Live Parsing
+
+Pointer decls
+Array decls
+Functions
+Function Pointers
+Keywords (Const, Volatile)
+Any mix of these
+
+UI
+
+Clear when a graph can be shown
+
+The reading of a graph must be obvious without a tutorial
+
+Functions - obvious inputs and output
+Keywords - clear what the keyword applies to
+ 

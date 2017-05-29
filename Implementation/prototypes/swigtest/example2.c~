@@ -1,0 +1,8 @@
+%module mymodule
+char foo() {
+  int x = 10;
+  return 'a';
+}
+int main() {
+
+}

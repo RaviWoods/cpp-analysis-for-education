@@ -1,0 +1,108 @@
+<!doctype html>
+<html>
+<head>
+  <title>Network | Basic usage</title>
+
+  <script type="text/javascript" src="./vis.js"></script>
+  <link href="./vis-network.min.css" rel="stylesheet" type="text/css" />
+  <link href="./style.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+
+<p>
+  Create a simple network with some nodes and edges.
+</p>
+
+<div id="mynetwork"></div>
+
+<script type="text/javascript">
+  // create an array with nodes
+  var svg = '<svg xmlns="http://www.w3.org/2000/svg" width="390" height="65">' +
+            '<rect x="0" y="0" width="100%" height="100%" fill="#7890A7" stroke-width="20" stroke="#ffffff" ></rect>' +
+            '<foreignObject x="15" y="10" width="100%" height="100%">' +
+            '<div xmlns="http://www.w3.org/1999/xhtml" style="font-size:40px">' +
+            ' <em>I</em> am' +
+            '<span style="color:white; text-shadow:0 0 20px #000000;">' +
+            ' HTML in SVG!</span>' +
+            '</div>' +
+            '</foreignObject>' +
+            '</svg>';
+
+  var svg2 = `
+  <svg xmlns="http://www.w3.org/2000/svg" width="1000px" height="1000px">
+  <rect x="0" y="0" width="100%" height="1000px" fill="red" stroke-width="20" stroke="#ffffff" ></rect>
+    <foreignObject x="15" y="10" width="100%" height="1000px">
+      <div xmlns="http://www.w3.org/1999/xhtml" style="font-size:40px">
+        <table class="table">
+          <tr>
+            <th>Company</th>
+            <th>Contact</th>
+            <th>Country</th>
+          </tr>
+          <tr>
+            <td>Alfreds Futterkiste</td>
+            <td>Maria Anders</td>
+            <td>Germany</td>
+          </tr>
+          <tr>
+            <td>Centro comercial Moctezuma</td>
+            <td>Francisco Chang</td>
+            <td>Mexico</td>
+          </tr>
+          <tr>
+            <td>Ernst Handel</td>
+            <td>Roland Mendel</td>
+            <td>Austria</td>
+          </tr>
+          <tr>
+            <td>Island Trading</td>
+            <td>Helen Bennett</td>
+            <td>UK</td>
+          </tr>
+          <tr>
+            <td>Laughing Bacchus Winecellars</td>
+            <td>Yoshi Tannamuri</td>
+            <td>Canada</td>
+          </tr>
+          <tr>
+            <td>Magazzini Alimentari Riuniti</td>
+            <td>Giovanni Rovelli</td>
+            <td>Italy</td>
+          </tr>
+        </table>
+      </div>
+    </foreignObject>
+  </svg>
+  `
+  var url = "data:image/svg+xml;charset=utf-8,"+ encodeURIComponent(svg2);
+
+  var nodes = new vis.DataSet([
+    {id: 1, image: url, shape: 'image'},
+    {id: 2, label: 'Node 2'},
+    {id: 3, label: 'Node 3'},
+    {id: 4, label: 'Node 4'},
+    {id: 5, label: 'Node 5'}
+  ]);
+
+  // create an array with edges
+  var edges = new vis.DataSet([
+    {from: 1, to: 3},
+    {from: 1, to: 2},
+    {from: 2, to: 4},
+    {from: 2, to: 5},
+    {from: 3, to: 5}
+  ]);
+
+  // create a network
+  var container = document.getElementById('mynetwork');
+  var data = {
+    nodes: nodes,
+    edges: edges
+  };
+  var options = {};
+  var network = new vis.Network(container, data, options);
+</script>
+
+
+</body>
+</html>
