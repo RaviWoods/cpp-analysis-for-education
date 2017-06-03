@@ -1,0 +1,9 @@
+{
+	"decls": [
+		{
+			"Name": "a",
+			"LineNumber": 2,
+			"Type": "CXType_Int"
+		}
+	]
+}

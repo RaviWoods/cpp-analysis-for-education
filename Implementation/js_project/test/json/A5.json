@@ -1,0 +1,9 @@
+{
+	"decls": [
+		{
+			"Name": "thisIsAVeryLongVariableNameToTestLongNames",
+			"LineNumber": 2,
+			"Type": "CXType_Int"
+		}
+	]
+}

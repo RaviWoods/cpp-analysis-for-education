@@ -1,0 +1,19 @@
+{
+	"decls": [
+		{
+			"Name": "aaa",
+			"LineNumber": 2,
+			"Type": "CXType_Int"
+		},
+    {
+			"Name": "bbb",
+			"LineNumber": 2,
+			"Type": "CXType_Int"
+		},
+    {
+			"Name": "ccc",
+			"LineNumber": 2,
+			"Type": "CXType_Int"
+		}
+	]
+}

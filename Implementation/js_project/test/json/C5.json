@@ -1,0 +1,14 @@
+{
+	"decls": [
+		{
+			"Name": "a",
+			"LineNumber": 2,
+			"Type": "CXType_ConstantArray",
+			"ArraySize": 10,
+			"ElementType": "CXType_Pointer",
+			"PointeeType": {
+        "Type": "CXType_Int"
+      }
+		}
+	]
+}

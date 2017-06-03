@@ -1,0 +1,23 @@
+1)  Array called decls
+
+2)  Each object in decls MUST have a Name, and LineNumber, and a Type. Name is a
+string, representing the name of the declaration. LineNumber is an int, where the
+declaration is found. Type is a string, representing the type of the declaration
+
+2)  Type can be CXType_Int, CXType_Long, CXType_Long, CXType_Float, CXType_Char_S,
+CXType_ConstantArray, CXType_Pointer or CXType_Function
+
+3)  If Type is CXType_Int, CXType_Long, CXType_Float or CXType_Char_S FINISH the
+declaration
+
+4)  If Type is CXType_ConstantArray, then the object MUST have a property
+ArraySize, and a property ElementType. ArraySize is an integer, defining the size
+of the array. If ArraySize is -1, the Array Size is not defined. ElementType is a string, defining what is contained in the array
+
+5)  If Type or ArrayType is CXType_Pointer, then the object MUST have a property
+PointeeType. PointeeType is an object, defining the element pointed to by the
+pointer
+
+6)  If Type is CXType_Function,
+
+7)  PointeeType

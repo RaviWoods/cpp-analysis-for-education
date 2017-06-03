@@ -1,25 +1,19 @@
-Types
+Basic Decls and Multiple Lines (A)
+
+Pointers (B)
 ---
 int* foo; // foo is a pointer to an integer // Y
 double** foo; // foo is a pointer to a pointer to a double // Y
 
-Arrays
+Arrays (C)
 ---
 int foo[];              foo is an array of ints // Y
 int foo[10];            foo is an array of 10 ints // Y
-int (*foo)[];           foo is a pointer to an array of ints 
+int (*foo)[];           foo is a pointer to an array of ints
 int *foo[];             foo is an array of pointers to integers // Y
+int foo[] = {1,2,3,4,5};
 
-Functions
----
-int foo();              foo is a function returning an int // Y
-char foo(int a, int b); foo is a function inputing an int, a, and an int, b, and returning an char // Y
-int (*foo)();           foo is a pointer to a function returning an int // Y
-int *foo();             foo is a function returning a pointer to an integer // Y
-int *foo(int a, float b); foo is a function taking an int and a float, returning a pointer to an integer // Y
-int (*foo)(int a, float b); foo is a a pointer to function returning an integer // Y
-
-Keywords
+Keywords (D)
 ---
 int* const* foo; foo is a pointer to a constant pointer to an integer // Y
 const int foo; foo is a constant integer // Y
@@ -31,30 +25,30 @@ int* volatile foo;
 int* static foo;
 int* extern foo;
 
+Functions (E)
+---
+int foo();              foo is a function returning an int // Y
+char foo(int a, int b); foo is a function inputing an int, a, and an int, b, and returning an char // Y
+int (*foo)();           foo is a pointer to a function returning an int // Y
+int *foo();             foo is a function returning a pointer to an integer // Y
+int *foo(int a, float b); foo is a function taking an int and a float, returning a pointer to an integer // Y
+int (*foo)(int a, float b); foo is a a pointer to function returning an integer // Y
+
 //TODO
 Recursion
 ---
 
-1
+F
 ---
 int foo[];            foo is an array of ints
 int foo[][];            foo is an array of arrays of ints
 int foo[][][];            foo is an array of arrays of arrays of ints
 
-2
+Multiple (H)
 ---
-int* foo;
-int** foo;
-int*** foo;
-
-
-Tests
---
-http://c-faq.com/decl/spiral.anderson.html
 char *str[10];          str is an array 10 of pointers to char
 char *(*fp)( int, float *); fp is a pointer to a function passing an int and a pointer to float returning a pointer to a char
 void (*signal(int, void (*fp)(int)))(int); signal is a function passing an int and a pointer to a function passing an int returning nothing (void) returning a pointer to a function passing an int returning nothing (void)
----
 int (**foo)[];          foo is a pointer to a pointer to an array of ints
 int (**foo)();          foo is a pointer to a pointer to a function returning an int
 int *(*foo)[];          foo is a pointer to an array of pointers to int

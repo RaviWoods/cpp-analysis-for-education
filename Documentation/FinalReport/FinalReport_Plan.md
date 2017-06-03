@@ -46,6 +46,16 @@
 
 * Other products
 * Competitors 
+	* CDecl
+	* Overview - Cdecl is a program which will turn English-like phrases such as "declare foo as array 5 of pointer to function returning int" into C declarations such as "int (*foo[5])()".  It can also translate the C into the pseudo- English
+	* Problems: 1 - Doesn't work with complex declarations
+	* Problems: 2 - Not visual
+		* When is this an issue
+	* Problems: 3 - Not integrated into an IDE
+	* Could we use backend?
+		* Possible, but would need to edit backend heavily
+		* Also not necessarily easy to package (True? Quick try)
+	
 * Static Analysis Research
 * UI testing **done**
 
@@ -58,7 +68,34 @@
 
 # Analysis and Design
 * Look over past projects before writing
-* F# vs Elm vs C#
+* Backend Infrastructure
+	* Intro
+		* Needs to be a Desktop App where the codebase can be moved to an IDE
+		* Needs to be Cross Platform
+		* Surely Web App then?
+		* Choosing Desktop App over Web App because...
+	* Language 
+		* Eclipse and Visual Studio both equally used
+		* However, Visual Studio and C++ is Windows only
+		* Visual Studio is new for Mac, and VS Code also exists for Mac
+		* VS and VSCode Extensions can be written using Node.JS and JS
+		* Eclipse is Cross Platform
+		* Eclipse Apps can be written in JS and JavaFX
+	* Java App
+		* JavaFX for Eclipse
+		* WindowBuilder for Eclipse - "builds an abstract syntax tree (AST) to navigate the source code", but code base dead. 
+		* True in the general case - development doesn't look very active, and not as "hackable"
+		* Nice language, with styling support
+	* Javascript App (Electron)
+		* Fast
+		* Hackable - Node access, HTML/CSS for UI, JS only add-ons
+		* Cross Platform
+		* Big
+		* JS is idiosyncratic as a language 
+	* Conclusion
+		* Would make sense to use Eclipse
+		* But likely will be easier and quicker to use Electron
+
 * Parsers **done**
 * Graphing
 * Test Driven Development Patterns

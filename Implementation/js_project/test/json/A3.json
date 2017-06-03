@@ -1,0 +1,24 @@
+{
+	"decls": [
+		{
+			"Name": "a",
+			"LineNumber": 2,
+			"Type": "CXType_Int"
+		},
+    {
+      "Name": "b",
+      "LineNumber": 3,
+      "Type": "CXType_Double"
+    },
+    {
+      "Name": "c",
+      "LineNumber": 4,
+      "Type": "CXType_Float"
+    },
+    {
+      "Name": "d",
+      "LineNumber": 5,
+      "Type": "CXType_Char_S"
+    }
+	]
+}

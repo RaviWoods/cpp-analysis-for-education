@@ -1,7 +1,5 @@
 
-**Misc**
-FYP - Make functions layout closer to drawings
-FYP - Add curly bracket to array
+
 
 **21st**
 Output JSON for any basic declaration **done**
@@ -16,62 +14,66 @@ FYP - Finish writing up parsers section **done**
 
 **28th**
 FYP - Writeup section on coding for education **done**
-
 FYP - Write Unit test framework **done**
+FYP - Fix links and filenames in JS code **done**
+FYP - Clean directory for JS code **done**
+FYP - Create debug/production modes in JS **done**
+FYP - Push to Git **done**
+FYP - Intro and Conclusion for Parsers **done**
+FYP - Final checklist for parsers **done**
+FYP - Final checklist for education **done**
 
-FYP - Fix links and filenames in JS code
-FYP - Clean directory for JS code
-FYP - Create debug/production modes in JS
-FYP - Push to Git
 
-FYP - Finish Test set
-FYP - Check Test set works
 
-FYP - Work out best way to write notes while coding
-FYP - Make better plans for report
+**1st**
+FYP - Create crappy UI to test graphs **done**
 
-FYP - Intro and Conclusion for Parsers
-FYP - Final checklist for parsers
-FYP - Final checklist for education
 
-FYP - Implement UI for live code editor
 
-**31st**
-FYP - Work out best evaluation plan
-FYP - Try using Vis.js
-FYP - Go through current report, and check voice of text
-FYP - Go over meetings
-FYP - Writeup section on graphing modules
-FYP - JSON for arrays
-FYP - JSON for recursive pointers
+
+**4th**
+FYP - Finish 1st half of Test set 
 FYP - Write on Competitors
-FYP - Write on Backend Infrastructure Choice
-FYP - Output graph for arrays, programatically 
-FYP - Test UI for live code editor
-FYP - Output graph for pointer decls, programatically
-FYP -  JSON for functions
-FYP -  Output graph for functions, programatically
-FYP - Write on Test Driven Development Patterns 
-
-FYP - Testing, 1st wave
-FYP - Write on Layout of Backend (JSON, Node, Electron, etc)
-
-FYP - Introduction
-FYP - Plans for the next 2 weeks
-FYP - Notes for uncompleted sections
-FYP - Write on Graphing Layout
-
-**2nd**
-FYP - JSON for const
-FYP - Output graph for const, programatically
-FYP - Write on 1st wave of testing
-
+FYP - Sort Report
+FYP - Go through current report, and check voice of text
 FYP - Abstract
-FYP - Write on Static Analysis Research
-FYP -  Write on Iterative Design in UI
+FYP - Write Introduction
+FYP - Output graph for basic decl, programatically 
+FYP - Edit section on UI design
+FYP - Edit UI Testing section
 
 
+FYP - Write on Backend infrastructure choice
+FYP - Output graph for pointer decls, programatically
+FYP - Titles for known uncompleted sections
+FYP - Finish 2nd half of Test set
+FYP - Try using Vis.js
+FYP - Plan section on graphing modules
+FYP - Plan section on Static Analysis
+FYP - Plan section on UI iterations
+FYP - JSON for recursive pointers
+FYP - JSON for arrays
+FYP - Output graph for arrays, programatically 
 
+**Monday 5th**
+FYP - Go over Draft Report
+FYP - Plans for the next 2 weeks
+FYP - UI Design for Code Editor
+FYP - Test graphs with recursive tests
+FYP - Test UI for live code editor
+FYP - Create UI for Code Editor
+
+**After**
+FYP - Writeup section on graphing modules
+FYP - Add curly bracket to Cytoscape array test
+FYP - UI Testing for Code Editor
+FYP - Output graph for const, programatically
+FYP - JSON for const
+FYP - Testing, 1st wave
+FYP - Write on 1st wave of testing
+FYP - Make functions layout closer to drawings
+FYP -  Output graph for functions, programatically
+FYP - JSON for functions
 
 
 
