@@ -13,7 +13,7 @@ var DEBUGFLAGS = {
 const DEBUG = DEBUGFLAGS.QUNIT | DEBUGFLAGS.PRINT | 0*DEBUGFLAGS.TESTFILE;
 
 Object.defineProperty(exports, "DEBUGFLAGS", {
-    value:        DEBUGFLAGS,
+        value:        DEBUGFLAGS,
     enumerable:   true,
     writable:     false,
     configurable: false
@@ -70,10 +70,15 @@ if(DEBUG > 0) {
 
 exports.debugPrint = function (message,varName) {
     if(DEBUG & DEBUGFLAGS.PRINT) {
-        if(varName==null) {
+        if(varName==null && message == null){
+            return;
+        }
+        else if(varName==null) {
             console.log(message);
+        } else if(message==null) {
+            console.log(varName);
         } else {
-            console.log(message + varName);
+            dCConsts.CXTypeKind[this.pointeeType.kind]
         }
     }
 }

@@ -32,38 +32,36 @@ FYP - Create crappy UI to test graphs **done**
 
 
 **4th**
-FYP - Finish 1st half of Test set 
-FYP - Write on Competitors
-FYP - Sort Report
-FYP - Go through current report, and check voice of text
-FYP - Abstract
-FYP - Write Introduction
-FYP - Output graph for basic decl, programatically 
-FYP - Edit section on UI design
-FYP - Edit UI Testing section
+FYP - Finish 1st half of Test set  **done**
+FYP - Sort Report **done**
+FYP - Abstract **done**
 
-
-FYP - Write on Backend infrastructure choice
-FYP - Output graph for pointer decls, programatically
-FYP - Titles for known uncompleted sections
-FYP - Finish 2nd half of Test set
+FYP - First draft of Static Analysis
 FYP - Try using Vis.js
-FYP - Plan section on graphing modules
-FYP - Plan section on Static Analysis
-FYP - Plan section on UI iterations
+FYP - First draft of graphing modules
+FYP - Write Introduction
 FYP - JSON for recursive pointers
-FYP - JSON for arrays
-FYP - Output graph for arrays, programatically 
+FYP - Go through current report, and check voice of text
 
 **Monday 5th**
 FYP - Go over Draft Report
+FYP - Titles for known uncompleted sections
+FYP - Edit Competitors
+FYP - Edit section on UI design
+FYP - Edit UI Testing section
+FYP - Edit Backend infrastructure choice
 FYP - Plans for the next 2 weeks
+FYP - Output graph for basic decl, programatically 
+FYP - Output graph for pointer decls, programatically
+
+**After**
+FYP - Finish 2nd half of Test set
 FYP - UI Design for Code Editor
 FYP - Test graphs with recursive tests
 FYP - Test UI for live code editor
 FYP - Create UI for Code Editor
-
-**After**
+FYP - JSON for arrays
+FYP - Output graph for arrays, programatically 
 FYP - Writeup section on graphing modules
 FYP - Add curly bracket to Cytoscape array test
 FYP - UI Testing for Code Editor

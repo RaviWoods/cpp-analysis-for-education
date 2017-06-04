@@ -46,10 +46,15 @@ exports.parser =  function (fileName) {
         } else {
             if(contains.call(parsedKinds, dCConsts.CXCursorKind[this.kind])) {
                 declObj.decls[i] = {Name:this.spelling, LineNumber: this.location.presumedLocation.line, Type:""}
-                if(this.kind == dCConsts.CXCursorKind["CXCursor_VarDecl"] && this.pointeeType.kind != dCConsts.CXTypeKind["CXType_Invalid"]) {
-                    //declObj.decls[i].Type = dCConsts.CXTypeKind[this.pointeeType.kind]
-                } else if(this.kind == dCConsts.CXCursorKind["CXCursor_VarDecl"]) {
+                if(this.kind == dCConsts.CXCursorKind["CXCursor_VarDecl"]) {
                     declObj.decls[i].Type = dCConsts.CXTypeKind[this.type.kind];
+                    //consts.debugPrint("this.type = ", );
+
+                    console.log(dCConsts.CXTypeKind["CXType_Pointer"])
+                    if(this.type.kind == dCConsts.CXTypeKind["CXType_Pointer"]){
+                        consts.debugPrint("Pointer found")
+                        declObj.decls[i].PointeeType = {Type:dCConsts.CXTypeKind[this.pointeeType.kind]};
+                    }
                 }
                 i++;
             }
