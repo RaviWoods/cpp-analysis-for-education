@@ -1,0 +1,8 @@
+digraph G {
+
+    edge[arrowhead="onormal",color=Blue, penwidth ="2.5"]
+    node [shape=box]
+
+    {A1,A2,A3,A4,A5,A2} -> F -> D
+
+}

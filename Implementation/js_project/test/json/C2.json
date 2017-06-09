@@ -9,28 +9,28 @@
 		},
 		{
 			"Name": "b",
-			"LineNumber": 2,
+			"LineNumber": 3,
 			"Type": "CXType_ConstantArray",
 			"ArraySize": 2,
 			"ElementType": "CXType_Int"
 		},
 		{
 			"Name": "c",
-			"LineNumber": 2,
+			"LineNumber": 4,
 			"Type": "CXType_ConstantArray",
 			"ArraySize": 3,
 			"ElementType": "CXType_Int"
 		},
 		{
 			"Name": "d",
-			"LineNumber": 2,
+			"LineNumber": 5,
 			"Type": "CXType_ConstantArray",
 			"ArraySize": 4,
 			"ElementType": "CXType_Int"
 		},
 		{
 			"Name": "e",
-			"LineNumber": 2,
+			"LineNumber": 6,
 			"Type": "CXType_ConstantArray",
 			"ArraySize": 5,
 			"ElementType": "CXType_Int"

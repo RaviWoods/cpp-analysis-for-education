@@ -30,7 +30,8 @@
     "libclang": "file:local_modules/node-libclang",
     "monaco-editor": "^0.8.3",
     "pgw-packager": "file:local_modules/pgw-packager",
-    "tempy": "^0.1.0"
+    "tempy": "^0.1.0",
+    "viz.js": "^1.8.0"
   },
   "dependencies": {
     "electron-log": "",

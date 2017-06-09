@@ -1,7 +1,7 @@
 {
 	"decls": [
 		{
-			"Name": "a",
+			"Name": "foo",
 			"LineNumber": 2,
 			"Type": "CXType_Pointer",
       "PointeeType": {

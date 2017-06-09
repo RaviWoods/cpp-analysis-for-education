@@ -1,8 +1,9 @@
 const consts = require('./consts.js')
 const parser = require('./parser.js')
+const graphing = require('./graphLayout')
 
 var editor;
-
+exports.editor = editor;
 // require node modules before loader.js comes in
 function uriFromPath(_path) {
     var pathName = consts.PATH.resolve(_path).replace(/\\/g, '/');
@@ -22,16 +23,27 @@ self.process.browser = true;
 amdRequire(['vs/editor/editor.main'], function() {
     editor = monaco.editor.create(document.getElementById('container'), {
         value: [
-            'function x() {',
-            '\tconsole.log("Hello world!");',
+            'int main() {',
+            '\tint x;',
+            '\treturn 0;',
             '}'
         ].join('\n'),
-        language: 'javascript'
+        language: 'cpp'
     });
     editor.onDidChangeModelContent((e) => {
-        printCode();
+        runGraphEngine()
     });
 });
+
+function runGraphEngine() {
+    var tempFileName = consts.TEMPY.file({extension: 'cpp'})
+    consts.FS.writeFile(tempFileName, editor.getValue(), function(err) {
+        if(err) {
+            return console.log(err);
+        }
+        graphing.layoutGraph(tempFileName);
+    }); 
+}
 
 function printCode() {
     var tempFileName = consts.TEMPY.file({extension: 'cpp'})

@@ -11,9 +11,7 @@
 * **UI testing research**
 * **UI design** **DRAFT**
 	* *Specific UI issues - pane_myers*
-	* Support Incremental Running and Testing with Immediate Feedback - pane_myers
-	* Avoid Subtle Distinctions in Syntax - pane_myers
-	* Use Signalling to Highlight Important Information - pane_myers
+
 	* Choose an Appropriate Metaphor - pane_myers
 	*  Consistency with Metaphor - pane_myers
 	*  Closeness of Mapping - pane_myers
@@ -55,7 +53,12 @@
 * **Static Analysis Research**
 	* Static Analysis
 		* Why is it usually undertaken? 
+		* For bug finding
 		* http://paginas.fe.up.pt/~ei05021/TQSO%20-%20An%20overview%20on%20the%20Static%20Code%20Analysis%20approach%20in%20Software%20Development.pdf
+		* While static analysis can produce false negatives/positives, and can only solve certain types of bugs, its better than the usual software manual review cycle
+		* Compared to dynamic analysis, it is often slower,
+		* "One of the advantages of the static analysis approach during development is that	the code is forcefully directed in a way as to be reliable, readable and lees prone to	 errors on future tests. This also influences the verification of the code after it is ready, reducing the number of problems found in further implementations that code. "
+		* Good static analysis tools must be easy to use. This means that their results must be  understandable to normal developers so that they educate their users about good programming practices. Another critical feature is the kind of knowledge (the rule set) the tool enforces. The importance of a good rule set can’t be overestimated. In the end, good static checkers can help spot and eradicate common security bugs. This is especially important for languages such as C, for which a very large corpus of rules already exists. "
 		* How easy is it for C++?
 		* http://blog.reverberate.org/2013/08/parsing-c-is-literally-undecidable.html
 	* Parsing Declarations
