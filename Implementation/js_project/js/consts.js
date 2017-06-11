@@ -10,10 +10,10 @@ var DEBUGFLAGS = {
 // DEBUG = 0 is production (No QUnit, No Printing)
 // DEBUG = 1 runs QUnit
 // DEBUG = 2 runs QUnit, and allows prints through debugParser
-const DEBUG = 0*DEBUGFLAGS.QUNIT | 0*DEBUGFLAGS.PRINT | 0*DEBUGFLAGS.TESTFILE;
+const DEBUG = 0*DEBUGFLAGS.QUNIT | 0*DEBUGFLAGS.PRINT | DEBUGFLAGS.TESTFILE;
 
 Object.defineProperty(exports, "DEBUGFLAGS", {
-        value:        DEBUGFLAGS,
+    value:        DEBUGFLAGS,
     enumerable:   true,
     writable:     false,
     configurable: false
@@ -56,16 +56,16 @@ Object.defineProperty(exports, "CPPTESTDIR", {
 });
 
 Object.defineProperty(exports, "JSONTESTDIR", {
-    value:        './test/json',
+    value:        './test/graphviz',
     enumerable:   true,
     writable:     false,
     configurable: false
 });
 
-if(DEBUG > 0) {
-    document.getElementById('code-editor-container').style.display = 'none';
+if(DEBUG & DEBUGFLAGS.QUNIT) {
+    document.getElementById('production-container').style.display = 'none';
 } else {
-    document.getElementById('qunit-container').style.display = 'none';
+    document.getElementById('test-container').style.display = 'none';
 }
 
 exports.debugPrint = function (message,varName) {

@@ -21,13 +21,13 @@ QUnit.test("test", function( assert ) {
     for (i in jsonFilenames) {
         for (j in cppFilenames) {
             if (jsonFilenames[i] == cppFilenames[j]) {
-                var jsonString = consts.FS.readFileSync("./test/json/" + jsonFilenames[i] + ".json", 'utf8');
+                var jsonString = consts.FS.readFileSync("./test/graphviz/" + jsonFilenames[i] + ".json", 'utf8');
                 try {
                     JSON.parse(jsonString);
                 } catch (e) {
                     console.log( "SYNTAX ERROR IN " + jsonFilenames[i] + ".json \n" + e);
                 }
-                assert.deepEqual(parser.parser(consts.CPPTESTDIR + '/' + cppFilenames[j] + ".cpp"), JSON.parse(jsonString), cppFilenames[j]);
+                assert.deepEqual(parser.parser2(consts.CPPTESTDIR + '/' + cppFilenames[j] + ".cpp"), JSON.parse(jsonString), cppFilenames[j]);
             }
         }
     }

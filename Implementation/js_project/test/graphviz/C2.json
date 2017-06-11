@@ -1,0 +1,39 @@
+{
+	"decls": [
+		{
+			"Name": "a",
+			"LineNumber": 2,
+			"Type": "CXType_ConstantArray",
+			"ArraySize": 1,
+			"ElementType": "CXType_Int"
+		},
+		{
+			"Name": "b",
+			"LineNumber": 3,
+			"Type": "CXType_ConstantArray",
+			"ArraySize": 2,
+			"ElementType": "CXType_Int"
+		},
+		{
+			"Name": "c",
+			"LineNumber": 4,
+			"Type": "CXType_ConstantArray",
+			"ArraySize": 3,
+			"ElementType": "CXType_Int"
+		},
+		{
+			"Name": "d",
+			"LineNumber": 5,
+			"Type": "CXType_ConstantArray",
+			"ArraySize": 4,
+			"ElementType": "CXType_Int"
+		},
+		{
+			"Name": "e",
+			"LineNumber": 6,
+			"Type": "CXType_ConstantArray",
+			"ArraySize": 5,
+			"ElementType": "CXType_Int"
+		}
+	]
+}

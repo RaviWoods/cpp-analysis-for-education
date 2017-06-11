@@ -1,0 +1,24 @@
+digraph g {
+    graph [
+    rankdir = "LR"
+    ];
+	subgraph x2 {
+		color=grey90;
+		style=rounded;
+		1 [
+            label = "<f0> Integer| <f1>...| <f2>"
+            shape = "record"
+        ];
+		label = "Size 10";
+	}
+    subgraph x1 {
+		color=grey90;
+		style=rounded;
+		2 [
+            label = "<f0> Decimal| <f1>...| <f2>"
+            shape = "record"
+        ];
+		label = "Size 10";
+	}
+    1 -> 2;
+}

@@ -1,0 +1,28 @@
+{
+	"decls": [
+		{
+			"LineNumber": 2,
+			"Name": "aaa",
+			"Type": "Integer",
+			"Graph": "digraph G { rankdir=LR; edge[arrowhead=\"open\",penwidth= \"1\"]; node [shape=box];2 [label=\"aaa\"];}",
+			"StartColumn": 9,
+			"EndColumn": 12
+		},
+		{
+			"LineNumber": 2,
+			"Name": "bbb",
+			"Type": "Integer",
+			"Graph": "digraph G { rankdir=LR; edge[arrowhead=\"open\",penwidth= \"1\"]; node [shape=box];2 [label=\"bbb\"];}",
+			"StartColumn": 18,
+			"EndColumn": 21
+		},
+		{
+			"LineNumber": 2,
+			"Name": "ccc",
+			"Type": "Integer",
+			"Graph": "digraph G { rankdir=LR; edge[arrowhead=\"open\",penwidth= \"1\"]; node [shape=box];2 [label=\"ccc\"];}",
+			"StartColumn": 27,
+			"EndColumn": 30
+		}
+	]
+}

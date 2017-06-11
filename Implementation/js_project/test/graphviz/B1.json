@@ -1,0 +1,12 @@
+{
+	"decls": [
+		{
+			"Name": "foo",
+			"LineNumber": 2,
+			"Type": "CXType_Pointer",
+      "PointeeType": {
+        "Type": "CXType_Float"
+      }
+		}
+	]
+}

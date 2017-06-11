@@ -1,0 +1,11 @@
+{
+	"decls": [
+		{
+			"Name": "foo",
+			"LineNumber": 2,
+			"Type": "CXType_ConstantArray",
+			"ArraySize": 5,
+			"ElementType": "CXType_Int"
+		}
+	]
+}

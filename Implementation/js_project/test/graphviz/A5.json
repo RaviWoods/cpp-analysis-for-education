@@ -1,0 +1,12 @@
+{
+	"decls": [
+		{
+			"LineNumber": 2,
+			"Name": "thisIsAVeryLongVariableNameToTestLongNames",
+			"Type": "Integer",
+			"Graph": "digraph G { rankdir=LR; edge[arrowhead=\"open\",penwidth= \"1\"]; node [shape=box];2 [label=\"thisIsAVeryLongVariableNameToTestLongNames\"];}",
+			"StartColumn": 9,
+			"EndColumn": 51
+		}
+	]
+}

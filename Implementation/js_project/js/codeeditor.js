@@ -3,7 +3,7 @@ const parser = require('./parser.js')
 const graphing = require('./graphLayout')
 
 var editor;
-exports.editor = editor;
+
 // require node modules before loader.js comes in
 function uriFromPath(_path) {
     var pathName = consts.PATH.resolve(_path).replace(/\\/g, '/');
@@ -21,18 +21,30 @@ self.module = undefined;
 self.process.browser = true;
 
 amdRequire(['vs/editor/editor.main'], function() {
-    editor = monaco.editor.create(document.getElementById('container'), {
+    editor = monaco.editor.create(document.getElementById('code-container'), {
         value: [
             'int main() {',
             '\tint x;',
             '\treturn 0;',
             '}'
         ].join('\n'),
-        language: 'cpp'
+        language: 'cpp',
+        theme: "vs-dark"
     });
     editor.onDidChangeModelContent((e) => {
-        runGraphEngine()
+        runGraphEngine();
     });
+
+    editor.onMouseDown(function (e) {
+        graphing.showGraph(e.target.range.startLineNumber,e.target.range.startColumn);
+    });
+
+    editor.onMouseMove(function (e) {
+        //console.log("(" + e.target.range.startLineNumber + "," + e.target.range.startColumn + ")");
+        graphing.showTip(e.target.range.startLineNumber,e.target.range.startColumn);
+    });
+    runGraphEngine();
+    exports.editor = editor;
 });
 
 function runGraphEngine() {
@@ -40,7 +52,7 @@ function runGraphEngine() {
     consts.FS.writeFile(tempFileName, editor.getValue(), function(err) {
         if(err) {
             return console.log(err);
-        }
+        }  
         graphing.layoutGraph(tempFileName);
     }); 
 }

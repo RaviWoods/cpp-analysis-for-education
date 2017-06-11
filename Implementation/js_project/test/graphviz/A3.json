@@ -1,0 +1,36 @@
+{
+	"decls": [
+		{
+			"LineNumber": 2,
+			"Name": "a",
+			"Type": "Integer",
+			"Graph": "digraph G { rankdir=LR; edge[arrowhead=\"open\",penwidth= \"1\"]; node [shape=box];2 [label=\"a\"];}",
+			"StartColumn": 9,
+			"EndColumn": 10
+		},
+		{
+			"LineNumber": 3,
+			"Name": "b",
+			"Type": "Double",
+			"Graph": "digraph G { rankdir=LR; edge[arrowhead=\"open\",penwidth= \"1\"]; node [shape=box];2 [label=\"b\"];}",
+			"StartColumn": 12,
+			"EndColumn": 13
+		},
+		{
+			"LineNumber": 4,
+			"Name": "c",
+			"Type": "Decimal",
+			"Graph": "digraph G { rankdir=LR; edge[arrowhead=\"open\",penwidth= \"1\"]; node [shape=box];2 [label=\"c\"];}",
+			"StartColumn": 11,
+			"EndColumn": 12
+		},
+    {
+			"LineNumber": 5,
+			"Name": "d",
+			"Type": "Character",
+			"Graph": "digraph G { rankdir=LR; edge[arrowhead=\"open\",penwidth= \"1\"]; node [shape=box];2 [label=\"d\"];}",
+			"StartColumn": 10,
+			"EndColumn": 11
+		}
+	]
+}

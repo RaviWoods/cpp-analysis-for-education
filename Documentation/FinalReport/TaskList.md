@@ -9,16 +9,18 @@ Generate MVP files for Arrays
 Create Parser that generates this MVP file for basic array
 Create QUnit tests for Test Set 1
 Write Parser to Pass 75% of these tests
+
 Generate MVP files for Functions
 Create QUnit tests for Test Set 2
 
 Aims
 ---
-MVP Code Editor
-MVP Visualisation
+MVP Code Editor **done**
+Visualisation - Pass 1st Test Stage
+Infrastructure Design Writeup
+Interfacing with LibClang Writeup
 Find and Plan Final Testing
-Graphing Libraries Writeup
-Iterative Design in Graphing UI Writeup
+
 
 **By Sat 17st Morning**
 

@@ -7,7 +7,9 @@ var TypeLabels = {
     "17": "Integer",
     "21": "Decimal",
     "13": "Character",
-    "101": " "
+    "101": "Pointer",
+    "112": "Array",
+    "22": "Double"
 };
 
 
@@ -92,6 +94,13 @@ exports.parser =  function (fileName) {
     
 }
 
+function addArrayNode(declaration,id,type,size) {
+    var innerlabel = "label = \"\<f0\>" + type + "| \<f1\>...| \<f2\>\";"
+    var outerLabel = "label = \"Size " + size + "\";"
+    var cluster = "subgraph cluster" + id + " {color=grey90; style=rounded;" + id + "[" + innerlabel + "shape = \"record\"];" + outerLabel + "}";
+    return (declaration += cluster);
+}
+
 function addNode(declaration,id,label) {
     var node = id + " [label=\"" + label + "\"];";
     return (declaration += node);
@@ -111,42 +120,47 @@ exports.parser2 =  function (fileName) {
     '-xc++',
     ]);
     tu.cursor.visitChildren(function (parent) {
-        var parse = true;
+        
         if(this.spelling == "__llvm__") {
             return;
         } else {
-                if(this.kind == dCConsts.CXCursorKind["CXCursor_VarDecl"]) {
-                    currentParserElement = this.type;
-                    if(currentParserElement.kind == dCConsts.CXTypeKind["CXType_ConstantArray"]) {
-                        parse = false;
-                    } else if (currentParserElement.kind == dCConsts.CXTypeKind["CXType_Pointer"]) {
-                        parse = true;
-                        var id = 1;
-                        var declaration = boilerPlate;
-                        declaration = addNode(declaration,id,this.spelling);
+            var parsed;
+            var declaration = boilerPlate;
+            if(this.kind == dCConsts.CXCursorKind["CXCursor_VarDecl"]) {
+                currentParserElement = this.type;
+                if(currentParserElement.kind == dCConsts.CXTypeKind["CXType_ConstantArray"]) {
+                    parsed = true;
+                    var id = 1;
+                    declaration = addNode(declaration,id,this.spelling);
+                    id++;
+                    declObj.decls[i] = {LineNumber:this.location.presumedLocation.line, Graph:declaration};
+                    declaration = addArrayNode(declaration,id,TypeLabels[currentParserElement.arrayElementType.kind], currentParserElement.arraySize);
+                    declaration = addEdge(declaration,id-1,id);
+                    id++;
+                } else if (currentParserElement.kind == dCConsts.CXTypeKind["CXType_Pointer"]) {
+                    parsed = true;
+                    var id = 1;
+                    declaration = addNode(declaration,id,this.spelling);
+                    id++;
+                    declObj.decls[i] = {LineNumber:this.location.presumedLocation.line, Graph:declaration};
+                    while(currentParserElement.kind == dCConsts.CXTypeKind["CXType_Pointer"]) {
+                        currentParserElement = currentParserElement.pointeeType; 
+                        declaration = addNode(declaration,id,TypeLabels[currentParserElement.kind]);
+                        declaration = addEdge(declaration,id-1,id);
                         id++;
-                        declObj.decls[i] = {LineNumber:this.location.presumedLocation.line, Graph:declaration};
-                        while(currentParserElement.kind == dCConsts.CXTypeKind["CXType_Pointer"]) {
-                            console.log("POINTER");
-                            currentParserElement = currentParserElement.pointeeType; 
-                            declaration = addNode(declaration,id,TypeLabels[currentParserElement.kind]);
-                            declaration = addEdge(declaration,id-1,id);
-                            id++;
-                        }
-                        declaration = declaration += "}";
-                        declObj.decls[i] = {LineNumber:this.location.presumedLocation.line, Graph:declaration};
-                        i++;
-                    } else {
-                        console.log("NOT POINTER");
-                        parse = true;
-                        var declaration = boilerPlate;
-                        declaration = addNode(declaration,2,this.spelling,currentParserElement.kind);
-                        declaration = declaration += "}";
-                        declObj.decls[i] = {LineNumber:this.location.presumedLocation.line, Graph:declaration};
-                        i++;
                     }
+                } else {
+                    parsed = true;
+                    declaration = addNode(declaration,2,this.spelling,currentParserElement.kind);
                 }
-                return Cursor.Recurse;
+            } 
+
+            if(parsed) {
+                declaration = declaration += "}";
+                declObj.decls[i] = {LineNumber:this.location.presumedLocation.line, Name:this.spelling, Type:TypeLabels[this.type.kind], Graph:declaration, StartColumn: this.location.presumedLocation.column, EndColumn:this.location.presumedLocation.column+this.spelling.length};
+                i++;
+            }
+            return Cursor.Recurse;
         }
     });
     return declObj;

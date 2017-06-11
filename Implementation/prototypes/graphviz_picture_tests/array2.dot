@@ -1,0 +1,19 @@
+digraph g {
+graph [
+rankdir = "LR"
+];
+node [
+fontsize = "16"
+shape = "ellipse"
+];
+"node0" [
+label = "<f0> Integer| <f1>...| <f2>"
+shape = "record"
+];
+"node2" [
+label = "<f0> Integer| <f1>| <f2>"
+shape = "record"
+];
+node0 -> node2
+
+}

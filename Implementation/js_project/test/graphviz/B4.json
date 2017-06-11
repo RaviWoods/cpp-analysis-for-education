@@ -1,0 +1,10 @@
+{
+	"decls": [
+		{
+			"Name": "foo",
+			"PointeeType": {
+        "Type": "CXType_Char_S"
+      }
+		}
+	]
+}
