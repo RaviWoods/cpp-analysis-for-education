@@ -1,7 +1,9 @@
 :root{
     --bgcm:#1e1e1e;
-    --greencm:#58F9C0;
-    --yellowcm:#FFE380;
+    --greencm:rgb(88,249,192);
+    --greentranscm:rgba(88,249,192,0.3);
+    --bluetranscm:rgba(91,146,229,0.5);
+    --yellowtranscm:rgba(255,227,128,0.3);
     --darkgreycm:#282a2e;
     --lightgreycm:#EDFFFF;
 }
@@ -35,7 +37,6 @@ body {
 .nav-btn-left {
    background:var(--greencm);
    color:var(--bgcm);
-   display: inline-block;
 }
 
 .nav-btn-right {
@@ -46,24 +47,32 @@ body {
   color:var(--bgcm);
 }
 
+svg {
+  max-width: 100%;
+}
+
+.hidepopUp{
+    display:none;
+    padding: 10px;
+    background-color: var(--lightgreycm);
+    border-radius: 5px;
+    width: auto;
+    height: auto;
+    position:absolute;
+    z-index: 999;
+}
+
+
 .decl-selected {
   cursor:pointer !important;
-  background-color: var(--greencm);
-  opacity: 0.3;
+  background-color: var(--greentranscm);
 }
 
 .decl-unselected {
   cursor:pointer !important;
-  opacity: 0.3;
-  background-color: var(--yellowcm);
+  background-color: var(--bluetranscm);
 }
 
-#panel {
-  position: absolute;
-  display: none;
-  background: #ccc;
-  border: 1px solid;
-}
 #code-container {
   margin: 0;
   padding: 0;
@@ -71,7 +80,7 @@ body {
   margin: 8px 4px 8px 8px;
 }
 
-#graph-container {
+#graph-box {
    height:600px;
    background:white;
    margin: 8px 8px 8px 4px;

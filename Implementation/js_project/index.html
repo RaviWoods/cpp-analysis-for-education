@@ -16,33 +16,28 @@
         <div id="qunit-fixture"></div>
     </div>
     <div id="production-container">
-      <div id="navbar" class="navbar-collapse collapse">
-        <div class="nav-btn-left-container col-sm-6 col-lg-6 col-md-6" >
-            <button type="button" class="nav-btn nav-btn-left btn-lg">Load</button>
-            <button type="button" class="nav-btn nav-btn-left btn-lg">Save</button>
-        </div>
-        <div class="col-sm-6 col-lg-6 col-md-6" >
-          <button type="button" id="decl-name" class="center-block nav-btn nav-btn-right btn-lg">Diagram</button>
-        </div>
-      </div>
       <div class="container content">
         <div class="row">
           <div class="col-sm-6 col-lg-6 col-md-6" >
-            <div id="panel" class="panel panel-default">
-              <div class="panel-body">A Basic Panel</div>
-            </div>
+            <button type="button" class="nav-btn nav-btn-left btn-lg">Load</button>
+            <button type="button" class="nav-btn nav-btn-left btn-lg">Save</button>
             <div class="" id="code-container">
             </div>
           </div>
           <div class="col-sm-6 col-lg-6 col-md-6">
-            <div class="" id="graph-container">
-
+            <div id="graph-box">
+              <p id="decl-name" class="center-block btn-lg text-center">Diagram</p>
+              <hr>
+              <div class="center-block" id="graph-container">
+              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-    
+    <div class="hidepopUp">
+      <p>Click to diagram declaration</p>
+    </div>
 	</body>
 
 	<script>

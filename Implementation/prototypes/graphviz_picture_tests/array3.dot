@@ -2,23 +2,23 @@ digraph g {
     graph [
     rankdir = "LR"
     ];
-	subgraph x2 {
+	subgraph cluster_0 {
 		color=grey90;
 		style=rounded;
-		1 [
+		"node0" [
             label = "<f0> Integer| <f1>...| <f2>"
             shape = "record"
         ];
 		label = "Size 10";
 	}
-    subgraph x1 {
+    subgraph cluster_2 {
 		color=grey90;
 		style=rounded;
-		2 [
+		"node1" [
             label = "<f0> Decimal| <f1>...| <f2>"
             shape = "record"
         ];
 		label = "Size 10";
 	}
-    1 -> 2;
+    node0 -> node1;
 }

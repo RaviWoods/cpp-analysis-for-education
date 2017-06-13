@@ -1,15 +1,12 @@
 {
-	"decls": [
-		{
-			"Name": "foo",
-			"LineNumber": 2,
-			"Type": "CXType_Pointer",
-      "PointeeType": {
-        "Type": "CXType_Pointer",
-        "PointeeType": {
-          "Type": "CXType_Double"
-        }
-      }
-		}
-	]
+  "decls": [
+    {
+      "LineNumber": 2,
+      "Name": "foo",
+      "Type": "Pointer",
+      "Graph": "digraph G { rankdir=LR; edge[arrowhead=\"open\",penwidth= \"1\"]; node [shape=box];1 [label=\"foo\"];2 [label=\"\"];1 -> 2;3 [label=\"Double\"];2 -> 3;}",
+      "StartColumn": 14,
+      "EndColumn": 17
+    }
+  ]
 }

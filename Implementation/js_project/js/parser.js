@@ -3,7 +3,7 @@ const libclang = require('libclang');
 const DYLD_LIBRARY_PATH= process.env.DYLD_LIBRARY_PATH;
 const dclang = require('../node_modules/libclang/lib/dynamic_clang.js');
 
-var TypeLabels = {
+var TypeLabelNavbar = {
     "17": "Integer",
     "21": "Decimal",
     "13": "Character",
@@ -12,6 +12,14 @@ var TypeLabels = {
     "22": "Double"
 };
 
+var TypeLabels = {
+    "17": "Integer",
+    "21": "Decimal",
+    "13": "Character",
+    "101": "",
+    "112": "",
+    "22": "Double"
+};
 
 var
   Cursor = libclang.Cursor,
@@ -95,7 +103,16 @@ exports.parser =  function (fileName) {
 }
 
 function addArrayNode(declaration,id,type,size) {
-    var innerlabel = "label = \"\<f0\>" + type + "| \<f1\>...| \<f2\>\";"
+    if(size == 1) {
+        var innerlabel = "label = \"" + type + "\";" ;
+    } else if(size == 2) {
+        var innerlabel = "label = \"\<f0\>" + type + "| \<f1\>\";"
+    } else if(size == 3) {
+        var innerlabel = "label = \"\<f0\>" + type + "| \<f1\> | \<f2\>\";"
+    } else {
+        var innerlabel = "label = \"\<f0\>" + type + "| \<f1\>...| \<f2\>\";"
+    }
+    
     var outerLabel = "label = \"Size " + size + "\";"
     var cluster = "subgraph cluster" + id + " {color=grey90; style=rounded;" + id + "[" + innerlabel + "shape = \"record\"];" + outerLabel + "}";
     return (declaration += cluster);
@@ -157,7 +174,7 @@ exports.parser2 =  function (fileName) {
 
             if(parsed) {
                 declaration = declaration += "}";
-                declObj.decls[i] = {LineNumber:this.location.presumedLocation.line, Name:this.spelling, Type:TypeLabels[this.type.kind], Graph:declaration, StartColumn: this.location.presumedLocation.column, EndColumn:this.location.presumedLocation.column+this.spelling.length};
+                declObj.decls[i] = {LineNumber:this.location.presumedLocation.line, Name:this.spelling, Type:TypeLabelNavbar[this.type.kind], Graph:declaration, StartColumn: this.location.presumedLocation.column, EndColumn:this.location.presumedLocation.column+this.spelling.length};
                 i++;
             }
             return Cursor.Recurse;

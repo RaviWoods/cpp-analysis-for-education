@@ -1,3 +1,3 @@
 int main() {
-    int x,b;
+    int foo[10];      
 }

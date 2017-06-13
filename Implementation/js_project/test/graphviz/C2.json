@@ -1,39 +1,44 @@
 {
-	"decls": [
-		{
-			"Name": "a",
-			"LineNumber": 2,
-			"Type": "CXType_ConstantArray",
-			"ArraySize": 1,
-			"ElementType": "CXType_Int"
-		},
-		{
-			"Name": "b",
-			"LineNumber": 3,
-			"Type": "CXType_ConstantArray",
-			"ArraySize": 2,
-			"ElementType": "CXType_Int"
-		},
-		{
-			"Name": "c",
-			"LineNumber": 4,
-			"Type": "CXType_ConstantArray",
-			"ArraySize": 3,
-			"ElementType": "CXType_Int"
-		},
-		{
-			"Name": "d",
-			"LineNumber": 5,
-			"Type": "CXType_ConstantArray",
-			"ArraySize": 4,
-			"ElementType": "CXType_Int"
-		},
-		{
-			"Name": "e",
-			"LineNumber": 6,
-			"Type": "CXType_ConstantArray",
-			"ArraySize": 5,
-			"ElementType": "CXType_Int"
-		}
-	]
+  "decls": [
+    {
+      "LineNumber": 2,
+      "Name": "a",
+      "Type": "Array",
+      "Graph": "digraph G { rankdir=LR; edge[arrowhead=\"open\",penwidth= \"1\"]; node [shape=box];1 [label=\"a\"];subgraph cluster2 {color=grey90; style=rounded;2[label = \"Integer\";shape = \"record\"];label = \"Size 1\";}1 -> 2;}",
+      "StartColumn": 9,
+      "EndColumn": 10
+    },
+    {
+      "LineNumber": 3,
+      "Name": "b",
+      "Type": "Array",
+      "Graph": "digraph G { rankdir=LR; edge[arrowhead=\"open\",penwidth= \"1\"]; node [shape=box];1 [label=\"b\"];subgraph cluster2 {color=grey90; style=rounded;2[label = \"<f0>Integer| <f1>\";shape = \"record\"];label = \"Size 2\";}1 -> 2;}",
+      "StartColumn": 9,
+      "EndColumn": 10
+    },
+    {
+      "LineNumber": 4,
+      "Name": "c",
+      "Type": "Array",
+      "Graph": "digraph G { rankdir=LR; edge[arrowhead=\"open\",penwidth= \"1\"]; node [shape=box];1 [label=\"c\"];subgraph cluster2 {color=grey90; style=rounded;2[label = \"<f0>Integer| <f1> | <f2>\";shape = \"record\"];label = \"Size 3\";}1 -> 2;}",
+      "StartColumn": 9,
+      "EndColumn": 10
+    },
+    {
+      "LineNumber": 5,
+      "Name": "d",
+      "Type": "Array",
+      "Graph": "digraph G { rankdir=LR; edge[arrowhead=\"open\",penwidth= \"1\"]; node [shape=box];1 [label=\"d\"];subgraph cluster2 {color=grey90; style=rounded;2[label = \"<f0>Integer| <f1>...| <f2>\";shape = \"record\"];label = \"Size 4\";}1 -> 2;}",
+      "StartColumn": 9,
+      "EndColumn": 10
+    },
+    {
+      "LineNumber": 6,
+      "Name": "e",
+      "Type": "Array",
+      "Graph": "digraph G { rankdir=LR; edge[arrowhead=\"open\",penwidth= \"1\"]; node [shape=box];1 [label=\"e\"];subgraph cluster2 {color=grey90; style=rounded;2[label = \"<f0>Integer| <f1>...| <f2>\";shape = \"record\"];label = \"Size 5\";}1 -> 2;}",
+      "StartColumn": 9,
+      "EndColumn": 10
+    }
+  ]
 }

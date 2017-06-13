@@ -16,14 +16,16 @@ Create QUnit tests for Test Set 2
 Aims
 ---
 MVP Code Editor **done**
-Visualisation - Pass 1st Test Stage
-Infrastructure Design Writeup
+Write all Unit Tests
+Infrastructure Design Plan
+Interfacing with LibClang Plan
+Overall Layout and UX Writeup
+
+**By Wed 14th 4pm**
+Parse basic tests for all sections (pointer, array, function, keyword)
 Interfacing with LibClang Writeup
+Overall Layout and UX Writeup
 Find and Plan Final Testing
-
-
-**By Sat 17st Morning**
-
 
 **By Wed 21st Morning**
 

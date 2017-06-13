@@ -1,3 +1,3 @@
 int main() {
-    char*** foo;
+    char***** foo;
 }

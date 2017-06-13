@@ -29,7 +29,8 @@ amdRequire(['vs/editor/editor.main'], function() {
             '}'
         ].join('\n'),
         language: 'cpp',
-        theme: "vs-dark"
+        theme: "vs-dark",
+        fontSize: 18
     });
     editor.onDidChangeModelContent((e) => {
         runGraphEngine();
@@ -40,10 +41,11 @@ amdRequire(['vs/editor/editor.main'], function() {
     });
 
     editor.onMouseMove(function (e) {
-        //console.log("(" + e.target.range.startLineNumber + "," + e.target.range.startColumn + ")");
         graphing.showTip(e.target.range.startLineNumber,e.target.range.startColumn);
     });
     runGraphEngine();
+    var decorations = editor.deltaDecorations([], []);
+    exports.decorations = decorations;
     exports.editor = editor;
 });
 
@@ -65,6 +67,6 @@ function printCode() {
         }
         console.log("STRING TO FILE TO PARSER");
         console.log("------");
-        console.log(JSON.stringify(parser.parser(tempFileName), null, 2));
+        console.log(JSON.stringify(parser.parser2(tempFileName), null, 2));
     }); 
 }

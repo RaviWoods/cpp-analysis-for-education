@@ -36,6 +36,6 @@ QUnit.test("test", function( assert ) {
 if(consts.DEBUG & consts.DEBUGFLAGS.TESTFILE) {
     parser.debugParser(consts.CPPTESTDIR + '/testfile.cpp')
     console.log("***ENDOFDEBUGPARSER***");
-    console.log(JSON.stringify(parser.parser(consts.CPPTESTDIR + '/testfile.cpp'),null,2))
+    console.log(JSON.stringify(parser.parser2(consts.CPPTESTDIR + '/testfile.cpp'),null,2))
     console.log("***ENDOFPROPERPARSE***");
 } 

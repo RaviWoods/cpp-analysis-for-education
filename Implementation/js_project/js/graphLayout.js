@@ -4,29 +4,35 @@ const codeEditor = require('./codeEditor.js')
 const viz = require('viz.js')
 
 var graphObj;
-var decorations;
+var decorationsList = [];
 var currentVar;
 var init = false;
+var pageX;
+var pageY;
 
 exports.layoutGraph =  function (tempFileName) {
     fileName = tempFileName;
     graphObj = parser.parser2(tempFileName);
     var x = false;
+    codeEditor.decorations = codeEditor.editor.deltaDecorations(codeEditor.decorations, []);
+    decorationsList = [];
     for (i in graphObj.decls) {
         if(graphObj.decls[i].Name == currentVar) {
             x = true;
             document.getElementById("graph-container").innerHTML = viz(graphObj.decls[i].Graph);
             document.getElementById("decl-name").innerHTML = "Declaration of the " + graphObj.decls[i].Type + ", called " + graphObj.decls[i].Name;
+            decorationsList.push({
+                range: new monaco.Range(graphObj.decls[i].LineNumber,graphObj.decls[i].StartColumn,graphObj.decls[i].LineNumber,graphObj.decls[i].EndColumn),
+                options: {inlineClassName: 'decl-selected'}
+            });
+        } else {
+            decorationsList.push({
+                range: new monaco.Range(graphObj.decls[i].LineNumber,graphObj.decls[i].StartColumn,graphObj.decls[i].LineNumber,graphObj.decls[i].EndColumn),
+                options: {inlineClassName: 'decl-unselected'}
+            });
         }
-        decorations = codeEditor.editor.deltaDecorations([] , [
-            { 
-                range: new monaco.Range(graphObj.decls[i].LineNumber,graphObj.decls[i].StartColumn,graphObj.decls[i].LineNumber,graphObj.decls[i].EndColumn), 
-                options: { 
-                    className: 'decl-unselected'
-                }
-            }
-        ]);
     }
+    codeEditor.decorations = codeEditor.editor.deltaDecorations(codeEditor.decorations, decorationsList);
     if(!x) {
         document.getElementById("graph-container").innerHTML = "";
         document.getElementById("decl-name").innerHTML = "Diagram";  
@@ -40,35 +46,43 @@ exports.showGraph = function(lineNumber,columnNumber) {
             currentVar = graphObj.decls[i].Name;
             document.getElementById("graph-container").innerHTML = viz(graphObj.decls[i].Graph);
             document.getElementById("decl-name").innerHTML = "Declaration of the " + graphObj.decls[i].Type + ", called " + graphObj.decls[i].Name;
-            decorations = codeEditor.editor.deltaDecorations([] , [
-                { 
-                    range: new monaco.Range(graphObj.decls[i].LineNumber,graphObj.decls[i].StartColumn,graphObj.decls[i].LineNumber,graphObj.decls[i].EndColumn), 
-                    options: { 
-                        className: 'decl-selected'
-                    }
-                }
-            ]);
+
         }
-        
     }
+    codeEditor.decorations = codeEditor.editor.deltaDecorations(codeEditor.decorations, []);
+    decorationsList = [];
+    for (i in graphObj.decls) {
+        if(graphObj.decls[i].Name == currentVar) {
+            decorationsList.push({
+                range: new monaco.Range(graphObj.decls[i].LineNumber,graphObj.decls[i].StartColumn,graphObj.decls[i].LineNumber,graphObj.decls[i].EndColumn),
+                options: {inlineClassName: 'decl-selected'}
+            });
+        } else {
+            decorationsList.push({
+                range: new monaco.Range(graphObj.decls[i].LineNumber,graphObj.decls[i].StartColumn,graphObj.decls[i].LineNumber,graphObj.decls[i].EndColumn),
+                options: {inlineClassName: 'decl-unselected'}
+            });
+        }
+    }
+    codeEditor.decorations = codeEditor.editor.deltaDecorations(codeEditor.decorations, decorationsList);
 }
 
-$("button").hover(function(e) {
-    $("#panel").css({
-        left: e.pageX + 1,
-        top: e.pageY + 1
-    }).stop().show(100);
-}, function() {
-    $("#panel").hide();
-});
+$("body").mousemove(function(e) {
+    pageX = e.pageX;
+    pageY = e.pageY;
+})
 
 exports.showTip = function(lineNumber,columnNumber) {
     if(lineNumber == graphObj.decls[0].LineNumber && columnNumber <= graphObj.decls[0].EndColumn && columnNumber >= graphObj.decls[0].StartColumn) {
-        $("#panel").css({
-            left: 100 + 1,
-            top: 100 + 1
-        }).stop().show(100), function() {
-            $("#panel").hide();
-        };
+        console.log("showtip")
+        console.log("("+ pageX + "," + pageY + ")")
+        $(".hidepopUp").show();         
+        $(".hidepopUp").css({             
+            top: (pageY+10) + "px",             
+            left: (pageX+10) + "px"         
+        });     
+    } else {
+        console.log("hidetip")
+        $(".hidepopUp").hide(); 
     }
 }

@@ -1,11 +1,12 @@
 {
-	"decls": [
-		{
-			"Name": "foo",
-			"LineNumber": 2,
-			"Type": "CXType_ConstantArray",
-			"ArraySize": 5,
-			"ElementType": "CXType_Int"
-		}
-	]
+  "decls": [
+    {
+      "LineNumber": 2,
+      "Name": "foo",
+      "Type": "Array",
+      "Graph": "digraph G { rankdir=LR; edge[arrowhead=\"open\",penwidth= \"1\"]; node [shape=box];1 [label=\"foo\"];subgraph cluster2 {color=grey90; style=rounded;2[label = \"<f0>Integer| <f1>...| <f2>\";shape = \"record\"];label = \"Size 5\";}1 -> 2;}",
+      "StartColumn": 9,
+      "EndColumn": 12
+    }
+  ]
 }
