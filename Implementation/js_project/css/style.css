@@ -13,42 +13,22 @@ body {
   background: var(--bgcm);
 }
 
-#navbar {
-  background: white;
-  padding-left: 70px !important;
-  padding-right: 70px !important;
-  padding-top: 10px;
-  padding-bottom: 10px;
-}
-
-.nav-btn-left-container
-{
-     text-align: center;
-}
-
-.nav-btn {
-  margin: 0 auto;
-  max-width: 700px; 
-  border-radius: 24px;
-  border: none;
-  
-}
-
-.nav-btn-left {
-   background:var(--greencm);
-   color:var(--bgcm);
-}
-
-.nav-btn-right {
-  border-width: 3px;
-  border-style: solid;
-  border-color: var(--bgcm);
-  background-color: transparent;
-  color:var(--bgcm);
+.btn-left {
+    border: none;
+    border-radius: 24px;
+    background-color: var(--greencm);
 }
 
 svg {
-  max-width: 100%;
+  width: 100%;
+}
+
+.left {
+  text-align: center;
+}
+
+.button-container {
+  display: inline-block;
 }
 
 .hidepopUp{
@@ -62,6 +42,11 @@ svg {
     z-index: 999;
 }
 
+#decl-name {
+  margin-bottom: 0px;
+  font-size: 20px !important;
+  font-decoration: bold
+}
 
 .decl-selected {
   cursor:pointer !important;
@@ -74,6 +59,7 @@ svg {
 }
 
 #code-container {
+  text-align: left !important;
   margin: 0;
   padding: 0;
   height: 600px;
@@ -84,7 +70,7 @@ svg {
    height:600px;
    background:white;
    margin: 8px 8px 8px 4px;
-   padding: 24px;
+   padding: 15px;
    border-radius: 24px;
 }
 
@@ -93,13 +79,14 @@ svg {
 }
 
 .content {
-  padding: 10px;
+  padding: 30px;
+  margin-left: 5px;
+  margin-right: 5px;
+  width: 100%;
 }
 
-#cy {
-  height: 100%;
-  width: 100%;
-  position: absolute;
-  left: 0;
-  top: 0;
+hr {
+  margin-top: 7px !important;
+  margin-bottom: 7px !important;
+  background-color: black !important;
 }

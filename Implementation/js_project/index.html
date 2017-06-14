@@ -18,31 +18,46 @@
     <div id="production-container">
       <div class="container content">
         <div class="row">
-          <div class="col-sm-6 col-lg-6 col-md-6" >
-            <button type="button" class="nav-btn nav-btn-left btn-lg">Load</button>
-            <button type="button" class="nav-btn nav-btn-left btn-lg">Save</button>
+          <div class="left col-sm-6 col-lg-6 col-md-6" >
+            <div class="button-container">
+                <button type="button" class="btn-left btn-lg">Load</button>
+                <button type="button" class="btn-left btn-lg">Save</button>
+            </div>
+            <br>
             <div class="" id="code-container">
             </div>
           </div>
-          <div class="col-sm-6 col-lg-6 col-md-6">
+          <div class="right col-sm-6 col-lg-6 col-md-6">
             <div id="graph-box">
-              <p id="decl-name" class="center-block btn-lg text-center">Diagram</p>
-              <hr>
+              <p id="decl-name" class="center-block text-center">Diagram</p>
+              <br>
               <div class="center-block" id="graph-container">
               </div>
+              <div id="zoom-container" class="container">
+                <div class="row">
+                  <div class="col-md-12">
+                      <i class="fa fa-plus-circle fa-3x" aria-hidden="true"></i>
+                  </div>
+                  <div class="col-md-12">
+                      <i class="fa fa-minus-circle fa-3x" aria-hidden="true"></i>
+                  </div>
+                </div>
+              </div>
+
             </div>
           </div>
         </div>
       </div>
     </div>
     <div class="hidepopUp">
-      <p>Click to diagram declaration</p>
+      <p>Click to diagram</p>
     </div>
 	</body>
 
 	<script>
 		var nodeRequire = global.require;
 	</script>
+  <script src="https://use.fontawesome.com/cbd6d9f5e0.js"></script>
 	<script src="./node_modules/monaco-editor/min/vs/loader.js"></script>
   <script src="./js/libs/qunit-2.3.2.js"></script>
   <script src="./js/libs/cytoscape.min.js"></script>
