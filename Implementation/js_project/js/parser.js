@@ -102,7 +102,7 @@ exports.parser =  function (fileName) {
     
 }
 
-function addArrayNode(declaration,id,type,size) {
+function addArrayNode(declaration,id,type,size, name) {
     if(size == 1) {
         var innerlabel = "label = \"" + type + "\";" ;
     } else if(size == 2) {
@@ -113,8 +113,8 @@ function addArrayNode(declaration,id,type,size) {
         var innerlabel = "label = \"\<f0\>" + type + "| \<f1\>...| \<f2\>\";"
     }
     
-    var outerLabel = "label = \"Size " + size + "\";"
-    var cluster = "subgraph cluster" + id + " {color=grey90; style=rounded;" + id + "[" + innerlabel + "shape = \"record\"];" + outerLabel + "}";
+    var outerLabel = "label = \"" + name + " of size " + size + "\";"
+    var cluster = "subgraph cluster" + id + " {color=grey70; style=rounded;" + id + "[" + innerlabel + "shape = \"record\"];" + outerLabel + "}";
     return (declaration += cluster);
 }
 
@@ -130,7 +130,10 @@ function addEdge(declaration,id1,id2) {
 
 exports.parser2 =  function (fileName) {
     var declObj = {decls: []};
-    var boilerPlate = "digraph G { rankdir=LR; edge[arrowhead=\"open\",penwidth= \"1\"]; node [shape=box];";
+        
+    
+    ;
+    var boilerPlate = "digraph G { rankdir=LR; splines=ortho;compound=true;graph[style=\"filled\",fillcolor=\"cadetblue1\"]; node [shape=box,style=\"filled\", fillcolor=\"white\"];";
     var i = 0;
     var index = new Index(true, true);
     var tu = new TranslationUnit.fromSource(index, fileName, [
@@ -148,11 +151,8 @@ exports.parser2 =  function (fileName) {
                 if(currentParserElement.kind == dCConsts.CXTypeKind["CXType_ConstantArray"]) {
                     parsed = true;
                     var id = 1;
-                    declaration = addNode(declaration,id,this.spelling);
-                    id++;
                     declObj.decls[i] = {LineNumber:this.location.presumedLocation.line, Graph:declaration};
-                    declaration = addArrayNode(declaration,id,TypeLabels[currentParserElement.arrayElementType.kind], currentParserElement.arraySize);
-                    declaration = addEdge(declaration,id-1,id);
+                    declaration = addArrayNode(declaration,id,TypeLabels[currentParserElement.arrayElementType.kind], currentParserElement.arraySize,this.spelling);
                     id++;
                 } else if (currentParserElement.kind == dCConsts.CXTypeKind["CXType_Pointer"]) {
                     parsed = true;
@@ -170,7 +170,11 @@ exports.parser2 =  function (fileName) {
                     parsed = true;
                     declaration = addNode(declaration,2,this.spelling,currentParserElement.kind);
                 }
-            } 
+            } else if(this.kind == dCConsts.CXCursorKind["CXCursor_FunctionDecl"]) {
+                //parsed = true;
+                for(var i = 0; i < this.type.argTypes; i++) {
+                }
+            }
 
             if(parsed) {
                 declaration = declaration += "}";
@@ -204,12 +208,16 @@ exports.debugParser = function (fileName) {
             'Array Size = '+this.type.arraySize+ '\n' +
             'Element Size = '+dCConsts.CXTypeKind[this.type.arrayElementType.kind]+ '\n' +
             'Pointee Type = ' +dCConsts.CXTypeKind[this.pointeeType.kind]+ '\n' +
-            'Pointee Type (Number) = '+this.pointeeType.kind+ '\n' +
-            "Size of Array Pointed to = "+this.type.pointeeType.arraySize+ '\n' +
-            "Type of Pointer in Array = "+dCConsts.CXTypeKind[this.type.pointeeType.arrayElementType.kind]+ '\n' +
+            'Number of arguments = ' +this.type.argTypes+ '\n' +
             'Line Number = '+this.location.presumedLocation.line+ '\n' +
-            'Column Number = '+this.location.presumedLocation.column+ '\n' +    
-            '-----------------');            
+            'Column Number = '+this.location.presumedLocation.column);
+            for(var i = 0; i < this.type.argTypes; i++) {
+                console.log(
+                    'Argument' + i + ':\n' +
+                    'Argument Type = ' +dCConsts.CXTypeKind[this.getArgument(i).type.kind]+ '\n' +
+                    'Argument Name = ' +this.getArgument(i).spelling);
+            }
+            console.log('-----------');      
             return Cursor.Recurse;
         }
     });

@@ -74,15 +74,12 @@ $("body").mousemove(function(e) {
 
 exports.showTip = function(lineNumber,columnNumber) {
     if(lineNumber == graphObj.decls[0].LineNumber && columnNumber <= graphObj.decls[0].EndColumn && columnNumber >= graphObj.decls[0].StartColumn) {
-        console.log("showtip")
-        console.log("("+ pageX + "," + pageY + ")")
         $(".hidepopUp").show();         
         $(".hidepopUp").css({             
             top: (pageY+10) + "px",             
             left: (pageX+10) + "px"         
         });     
     } else {
-        console.log("hidetip")
         $(".hidepopUp").hide(); 
     }
 }

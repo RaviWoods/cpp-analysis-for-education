@@ -1,0 +1,42 @@
+//int *foo(int a, float b); foo is a function taking an int and a float, returning a pointer to an integer // Y
+
+digraph g {
+    compound=true;
+    rankdir=LR; 
+    splines=ortho;
+    edge[arrowsize="1.3",fillcolor="cadetblue1",style="filled"]; 
+    graph[style="filled",fillcolor="cadetblue1"];
+    node [shape=box,style="filled", fillcolor="white"];
+	subgraph cluster_a {
+	    style="filled"
+
+        
+		1 [label="Int a"]
+	}
+    subgraph cluster_b {
+        edge[arrowhead="open",style="solid", fillcolor="black", arrowsize="1", penwidth="1",color="black",style="solid"];
+        "node0" [
+                label = "b"
+        ];
+        subgraph cluster_2 {
+    		color=gray70;
+    		style=rounded;
+    		"node1" [
+                label = "<f0> Decimal| <f1>...| <f2>"
+                shape = "record"
+            ];
+    		label = "Size 10";
+    	}
+        node0 -> node1;
+	}
+    subgraph cluster_c {
+        edge[arrowhead="open",style="solid", fillcolor="black", arrowsize="1", penwidth="1",color="black",style="solid"];
+        3 [label=" "];
+        4 [label="Decimal"];
+        3 -> 4;
+	}
+    1 -> foo [ltail=cluster_a];
+    node0 -> foo [ltail=cluster_b];
+    foo -> 3 [lhead=cluster_c];
+    
+}

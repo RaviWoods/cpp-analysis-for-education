@@ -57,12 +57,19 @@ var Type = function (instance) {
     }
   });
 
-  Object.defineProperty(this, 'argTypes', {
+  Object.defineProperty(this, 'numArgTypes', {
     get: function () {
       return lib.clang_getNumArgTypes(self._instance);
     }
   });
 
+
+  Object.defineProperty(this, 'resultType', {
+    get: function () {
+      return new Type(lib.clang_getResultType(self._instance));
+    }
+  });
+  
   Object.defineProperty(this, 'declaration', {
     get: function () {
       var c = lib.clang_getTypeDeclaration(self._instance);
@@ -81,7 +88,6 @@ var Type = function (instance) {
       return new Type(lib.clang_getArraySize(self._instance));
     }
   });
-
 
   Object.defineProperty(this, 'elementType', {
     get: function () {

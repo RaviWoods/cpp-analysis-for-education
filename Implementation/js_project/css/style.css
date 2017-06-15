@@ -28,7 +28,7 @@ svg {
 }
 
 .button-container {
-  display: inline-block;
+  display: none;/*inline-block;*/
 }
 
 .hidepopUp{
@@ -89,4 +89,8 @@ hr {
   margin-top: 7px !important;
   margin-bottom: 7px !important;
   background-color: black !important;
+}
+
+#zoom-container {
+  display: none;
 }

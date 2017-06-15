@@ -1,3 +1,3 @@
-int main() {
-    int foo[10];      
-}
+char foo(char a, char b);
+
+int main() {}
