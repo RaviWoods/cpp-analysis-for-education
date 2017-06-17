@@ -1,0 +1,29 @@
+digraph structs {
+    rankdir=LR; 
+    splines=line;
+    graph[style="filled",color="gray60"];
+    node [shape=record,style="filled", fillcolor="white"];
+    edge[penwidth="2.0",arrowhead="none",style="dashed",color="gray60"]; 
+    subgraph cluster_1 {
+        subgraph cluster_2 {
+            "node0" [
+                label = "<f0> &#10060;| <f1>No input\n (void)";
+                shape = "Mrecord";
+                style="filled";
+            ];
+	    }
+	}     
+    subgraph cluster_3 {
+        "node3" [
+            label = "<f0> &#10060;| <f1>No output\n (void)";
+            shape = "Mrecord";
+            style="filled";
+        ];
+	}  
+    
+    node4[label="foo|{<in>IN|<out>OUT}"];
+    
+    
+    node0 -> node4:in;
+    node4:out -> node3;
+} 

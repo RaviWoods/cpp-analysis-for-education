@@ -1,0 +1,38 @@
+digraph structs {
+    rankdir=LR; 
+    splines=line;
+    graph[style="filled",color="gray60"];
+    node [shape=record,style="filled", fillcolor="white"];
+    edge[penwidth="2.0",arrowhead="none",style="dashed",color="gray60"]; 
+    subgraph cluster_1 {
+        "node1" [
+            label = "<f0> a| <f1>Integer\n (int)";
+            shape = "Mrecord";
+        ];
+	}   
+    subgraph cluster_2 {
+        "node2" [
+            label = "<f0> b| <f1>Decimal\n (float)";
+            shape = "Mrecord";
+        ];
+	}   
+    subgraph cluster_3 {
+        "node3" [
+            label = "<f0>Character\n (char)";
+            shape = "Mrecord";
+        ];
+	}  
+    
+    subgraph cluster_4 {
+        color="white";
+        node4[label="foo|{<in>IN|<out>OUT}"];
+        node5[shape=point,style="filled",width="0.1",fillcolor="gray60" color="black"];
+    }
+
+    
+    
+    node1 -> node5;
+    node2 -> node5;
+    node5 -> node4:in;
+    node4:out -> node3;
+} 
