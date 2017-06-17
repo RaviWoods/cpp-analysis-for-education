@@ -1,0 +1,17 @@
+A1 x
+C1 x
+C2 x
+D1 X
+D4 
+EA2 X
+EA5 X
+EA8 X
+EB1
+EB3 X
+EB5 X
+EB7 X
+F1
+F5
+GA1 X
+GA2
+GA3 
