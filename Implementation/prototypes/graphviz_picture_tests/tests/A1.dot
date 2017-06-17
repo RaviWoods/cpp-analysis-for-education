@@ -1,4 +1,4 @@
-digraph g {
+{digraph g {
     rankdir=LR; 
     splines=line;
     graph[style="filled",color="gray60"];
@@ -8,5 +8,5 @@ digraph g {
     "node0" [
             label = "<f0> a| <f1>Integer\n (int)";
             shape = "Mrecord";
-        ];
-}
+    ];
+}}
