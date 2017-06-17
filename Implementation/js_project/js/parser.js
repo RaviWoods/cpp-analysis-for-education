@@ -129,10 +129,7 @@ function addEdge(declaration,id1,id2) {
 }
 
 exports.parser2 =  function (fileName) {
-    var declObj = {decls: []};
-        
-    
-    ;
+    var declObj = {decls:[]};
     var boilerPlate = "digraph G { rankdir=LR; splines=ortho;compound=true;graph[style=\"filled\",fillcolor=\"cadetblue1\"]; node [shape=box,style=\"filled\", fillcolor=\"white\"];";
     var i = 0;
     var index = new Index(true, true);
@@ -140,11 +137,10 @@ exports.parser2 =  function (fileName) {
     '-xc++',
     ]);
     tu.cursor.visitChildren(function (parent) {
-        
         if(this.spelling == "__llvm__") {
             return;
         } else {
-            var parsed;
+            var parsed = false;
             var declaration = boilerPlate;
             if(this.kind == dCConsts.CXCursorKind["CXCursor_VarDecl"]) {
                 currentParserElement = this.type;
@@ -172,11 +168,12 @@ exports.parser2 =  function (fileName) {
                 }
             } else if(this.kind == dCConsts.CXCursorKind["CXCursor_FunctionDecl"]) {
                 //parsed = true;
-                for(var i = 0; i < this.type.argTypes; i++) {
-                }
+                //for(var i = 0; i < this.type.argTypes; i++) {
+                //}
             }
 
             if(parsed) {
+                console.log("parsed")
                 declaration = declaration += "}";
                 declObj.decls[i] = {LineNumber:this.location.presumedLocation.line, Name:this.spelling, Type:TypeLabelNavbar[this.type.kind], Graph:declaration, StartColumn: this.location.presumedLocation.column, EndColumn:this.location.presumedLocation.column+this.spelling.length};
                 i++;
