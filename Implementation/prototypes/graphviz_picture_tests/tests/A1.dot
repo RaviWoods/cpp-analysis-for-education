@@ -1,4 +1,4 @@
-{digraph g {
+digraph g {
     rankdir=LR; 
     splines=line;
     graph[style="filled",color="gray60"];

@@ -2,6 +2,7 @@ const consts = require('./consts.js')
 const libclang = require('libclang');
 const DYLD_LIBRARY_PATH= process.env.DYLD_LIBRARY_PATH;
 const dclang = require('../node_modules/libclang/lib/dynamic_clang.js');
+const graphviz = require("graphviz");
 
 var TypeLabelNavbar = {
     "17": "Integer",
@@ -12,13 +13,13 @@ var TypeLabelNavbar = {
     "22": "Double"
 };
 
-var TypeLabels = {
-    "17": "Integer",
-    "21": "Decimal",
-    "13": "Character",
+var TypeLabel = {
+    "17": "Integer\\n(int)",
+    "21": "Decimal\\n(float)",
+    "13": "Character\\n(char)",
     "101": "",
     "112": "",
-    "22": "Double"
+    "22": "Precise Decimal\\n(double)"
 };
 
 var
@@ -118,9 +119,16 @@ function addArrayNode(declaration,id,type,size, name) {
     return (declaration += cluster);
 }
 
-function addNode(declaration,id,label) {
-    var node = id + " [label=\"" + label + "\"];";
-    return (declaration += node);
+function addDataNode(g,id,name,label) {
+    var node = g.addNode(id);
+    node.set("shape","Mrecord");
+    if(name==null) {
+        node.set("label","<f0>" + getLabel(label));
+    } else {
+        console.log(getLabel[label])
+        node.set("label","<f0>" + name + "| <f1>" + getLabel(label));
+    }
+    return id++;
 }
 
 function addEdge(declaration,id1,id2) {
@@ -128,6 +136,57 @@ function addEdge(declaration,id1,id2) {
     return (declaration += edge);
 }
 
+function getLabel(kind) {
+    if(TypeLabel[kind]==null) {
+        return dCConsts.CXTypeKind[kind];
+    } else {
+        return TypeLabel[kind];
+    }
+}
+
+function getNavLabel(kind) {
+    if(TypeLabelNavbar[kind]==null) {
+        return dCConsts.CXTypeKind[kind];
+    } else {
+        return TypeLabelNavbar[kind];
+    }
+}
+
+exports.parser2 =  function (fileName) {
+    var declObj = {decls:[]};
+    var i = 0;
+    var index = new Index(true, true);
+    var tu = new TranslationUnit.fromSource(index, fileName, [
+    '-xc++',
+    ]);
+    tu.cursor.visitChildren(function (parent) {
+        if(this.spelling == "__llvm__") {
+            return;
+        } else {
+            var g = graphviz.digraph("G");
+            var id = 0;
+            g.set("rankdir","LR");
+            g.set("splines","line");
+            g.set("style","filled");
+            var parsed = false;
+            if(this.kind == dCConsts.CXCursorKind["CXCursor_VarDecl"]) {
+                parsed = true;
+                addDataNode(g,id,null,this.type.kind);
+            }
+
+            if(parsed) {
+                declObj.decls[i] = {LineNumber:this.location.presumedLocation.line, Name:this.spelling, Type:getNavLabel(this.type.kind), Graph:g.to_dot(), StartColumn: this.location.presumedLocation.column, EndColumn:this.location.presumedLocation.column+this.spelling.length};
+                i++;
+            }
+            return Cursor.Recurse;
+        }
+    });
+    return declObj;
+    index.dispose();
+    tu.dispose;
+}
+
+/*
 exports.parser2 =  function (fileName) {
     var declObj = {decls:[]};
     var boilerPlate = "digraph G { rankdir=LR; splines=ortho;compound=true;graph[style=\"filled\",fillcolor=\"cadetblue1\"]; node [shape=box,style=\"filled\", fillcolor=\"white\"];";
@@ -184,8 +243,8 @@ exports.parser2 =  function (fileName) {
     return declObj;
     index.dispose();
     tu.dispose;
-    
 }
+*/
 
 exports.debugParser = function (fileName) {
     console.log("Debug Parser with file path = " +  fileName);

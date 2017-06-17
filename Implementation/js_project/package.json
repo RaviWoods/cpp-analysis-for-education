@@ -26,6 +26,7 @@
     "electron-rebuild": "^1.5.11",
     "electron-winstaller": "^2.4.1",
     "fs": "0.0.1-security",
+    "graphviz": "0.0.8",
     "jquery": "^3.2.1",
     "libclang": "file:local_modules/node-libclang",
     "monaco-editor": "^0.8.3",

@@ -19,7 +19,6 @@ exports.layoutGraph =  function (tempFileName) {
     
     for (i in graphObj.decls) {
         if(graphObj.decls[i].Name == currentVar) {
-            console.log(graphObj.decls[i].Name+" selected")
             x = true;
             document.getElementById("graph-container").innerHTML = viz(graphObj.decls[i].Graph);
             document.getElementById("decl-name").innerHTML = "Declaration of the " + graphObj.decls[i].Type + ", called " + graphObj.decls[i].Name;
@@ -28,7 +27,6 @@ exports.layoutGraph =  function (tempFileName) {
                 options: {inlineClassName: 'decl-selected'}
             });
         } else {
-            console.log(graphObj.decls[i].Name+" unselected")
             decorationsList.push({
                 range: new monaco.Range(graphObj.decls[i].LineNumber,graphObj.decls[i].StartColumn,graphObj.decls[i].LineNumber,graphObj.decls[i].EndColumn),
                 options: {inlineClassName: 'decl-unselected'}
