@@ -24,7 +24,9 @@ var TypeLabel = {
     "101": "",
     "111": "",
     "112": "",
-    "22": "Precise Decimal\\n(double)"
+    "22": "Precise Decimal\\n(double)",
+    "NoOut": "No output\\n (void)",
+    "NoIn" : "No input\\n (void)",
 };
 
 var
@@ -148,6 +150,9 @@ function addDataNode(g,name,label) {
     if(name==null) {
         node.set("shape","record");
         node.set("label","<f0>" + getLabel(label));
+    } else if(name=="0return") {
+        node.set("shape","Mrecord");
+        node.set("label","<f0>" + getLabel(label));
     } else {
         node.set("shape","Mrecord");
         node.set("label","<f0>" + name + "| <f1>" + getLabel(label));
@@ -158,6 +163,7 @@ function addDataNode(g,name,label) {
 
 function addFunctionCluster(g,name,inputNum) {
     var cluster = g.addCluster("cluster_" + cid);
+    cluster.set("color","white");
     cid++;
     if(inputNum > 1) {
         var preFuncNode = cluster.addNode("node" + id);
@@ -166,7 +172,7 @@ function addFunctionCluster(g,name,inputNum) {
         preFuncNode.set("width","0.1");
         preFuncNode.set("fillcolor","gray60");
         preFuncNode.set("color","gray60");
-        cluster.addEdge("node" + id, "node" + (id+1));
+        cluster.addEdge("node" + id, "node" + (id+1) + ":in");
         id++;
     }
     var funcNode = cluster.addNode("node" + id);
@@ -180,12 +186,6 @@ function addFunctionCluster(g,name,inputNum) {
     id++;
     return;  
 }
-/*
-function addEdge(declaration,id1,id2) {
-    var edge = id1 + " -> " + id2 + ";";
-    return (declaration += edge);
-}
-*/
 
 function getLabel(kind) {
     if(TypeLabel[kind]==null) {
@@ -198,20 +198,31 @@ function getLabel(kind) {
 function parse(obj, g, type) {
     var parsed = false;
     var name;
-    var pType;
     if(obj==null) {
         name = null;
-        pType = null;
+    } else if(obj=="0return") {
+        name = "0return";
     } else {
         name = obj.spelling;
-        pType = obj.pointeeType;
     }
     if(type.kind == dCConsts.CXTypeKind["CXType_ConstantArray"]) {
         parsed = true;
         addArrayNode(g,name,type.arraySize,type.arrayElementType.kind);
+        if(type.arrayElementType.kind == dCConsts.CXTypeKind["CXType_Pointer"]) {
+            pointerEdge = g.addEdge("node" + (id-1) + ":f0","node" + id);  
+            pointerEdge.set("penwidth","1.0");
+            pointerEdge.set("arrowhead","normal");
+            pointerEdge.set("color","black");
+            pointerEdge.set("style","solid");
+            parsed = parse(null,g,type.arrayElementType.pointeeType);
+        }
     } else if(type.kind == dCConsts.CXTypeKind["CXType_Pointer"]) {
         addDataNode(g,name,type.kind);
-        g.addEdge("node" + (id-1),"node" + id);  
+        pointerEdge = g.addEdge("node" + (id-1) + ":f1","node" + id);  
+        pointerEdge.set("penwidth","1.0");
+        pointerEdge.set("arrowhead","normal");
+        pointerEdge.set("color","black");
+        pointerEdge.set("style","solid");
         parsed = parse(null,g,type.pointeeType); 
     } else if(type.kind == dCConsts.CXTypeKind["CXType_FunctionProto"]) {
         parsed = true;
@@ -219,13 +230,24 @@ function parse(obj, g, type) {
         addFunctionCluster(g,name,type.argTypes);
         var cluster = g.addCluster("cluster_" + cid);
         cid++;
-        g.addEdge("node" + (id-1), "node" + id); 
-        parse(null,cluster,obj.type.result);
-        for(var i = 0; i < type.argTypes; i++) {
+        g.addEdge("node" + (id-1) + ":out", "node" + id); 
+        if(obj.type.result.kind==dCConsts.CXTypeKind["CXType_FirstBuiltin"]) {
+            addDataNode(cluster,"&#10060;","NoOut");
+        } else {
+            parse("0return",cluster,obj.type.result);
+        }
+        if(type.argTypes == 0) {
             var cluster = g.addCluster("cluster_" + cid);
             cid++;
-            g.addEdge("node" + id,"node" + functionID); 
-            parse(obj.getArgument(i),cluster,obj.getArgument(i).type)
+            g.addEdge("node" + id,"node" + functionID + ":in"); 
+            addDataNode(cluster,"&#10060;","NoIn");
+        } else {
+            for(var i = 0; i < type.argTypes; i++) {
+                var cluster = g.addCluster("cluster_" + cid);
+                cid++;
+                g.addEdge("node" + id,"node" + functionID); 
+                parse(obj.getArgument(i),cluster,obj.getArgument(i).type)
+            }
         }
     } else {
         parsed = true;
@@ -259,6 +281,14 @@ exports.parser2 =  function (fileName) {
             g.set("rankdir","LR");
             g.set("splines","line");
             g.set("style","filled");
+            g.set("color","gray60");
+            g.setNodeAttribut("shape","record");
+            g.setNodeAttribut("style","filled");
+            g.setNodeAttribut("fillcolor","white");
+            g.setEdgeAttribut("penwidth","2.0");
+            g.setEdgeAttribut("arrowhead","none");
+            g.setEdgeAttribut("style","dashed");
+            g.setEdgeAttribut("color","gray60");
             var parsed = false;
             if(this.kind == dCConsts.CXCursorKind["CXCursor_VarDecl"]) {
                 parsed = parse(this,g,this.type);
