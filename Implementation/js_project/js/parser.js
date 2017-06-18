@@ -4,6 +4,9 @@ const DYLD_LIBRARY_PATH= process.env.DYLD_LIBRARY_PATH;
 const dclang = require('../node_modules/libclang/lib/dynamic_clang.js');
 const graphviz = require("graphviz");
 
+var id = 0;
+var cid = 0;
+
 var TypeLabelNavbar = {
     "17": "Integer",
     "21": "Decimal",
@@ -103,38 +106,63 @@ exports.parser =  function (fileName) {
     
 }
 
-function addArrayNode(declaration,id,type,size, name) {
-    if(size == 1) {
-        var innerlabel = "label = \"" + type + "\";" ;
-    } else if(size == 2) {
-        var innerlabel = "label = \"\<f0\>" + type + "| \<f1\>\";"
-    } else if(size == 3) {
-        var innerlabel = "label = \"\<f0\>" + type + "| \<f1\> | \<f2\>\";"
+function addArrayNode(g,name,size,label) {
+    console.log("array")
+    var cluster = g.addCluster("cluster_" + cid);
+    cid++;
+    cluster.set("style","rounded");
+    cluster.set("color","grey90");
+    var nameNode = cluster.addNode("node" + id);
+    nameNode.set("shape","Mrecord");
+    id++;
+    var arrayNode = cluster.addNode("node" + id);
+    arrayNode.set("shape","record");
+    id++;
+
+    if(size==0&&name==null) {
+        nameNode.set("label","<f0> | <f1>Unsized")
+    } else if(size==0) {
+        nameNode.set("label","<f0>" + name + "| <f1>Unsized")
+    } else if(name==null) {
+        nameNode.set("label","<f0> | <f1> Size " + size);
     } else {
-        var innerlabel = "label = \"\<f0\>" + type + "| \<f1\>...| \<f2\>\";"
+        nameNode.set("label","<f0>" + name + "| <f1>Size " + size);
     }
     
-    var outerLabel = "label = \"" + name + " of size " + size + "\";"
-    var cluster = "subgraph cluster" + id + " {color=grey70; style=rounded;" + id + "[" + innerlabel + "shape = \"record\"];" + outerLabel + "}";
-    return (declaration += cluster);
+    if(size == 1) {
+        arrayNode.set("label","<f0>" + getLabel(label));
+    } else if(size == 2) {
+        arrayNode.set("label","<f0>" + getLabel(label)+ "| <f1>");
+    } else if(size == 3) {
+        arrayNode.set("label","<f0>" + getLabel(label)+ "| <f1> | <f2>");
+    } else {
+        arrayNode.set("label","<f0>" + getLabel(label)+ "| <f1>...| <f2>");
+    }
+
+    return;
 }
 
-function addDataNode(g,id,name,label) {
-    var node = g.addNode(id);
-    node.set("shape","Mrecord");
+function addDataNode(g,name,label) {
+    console.log(id);
+    var node = g.addNode("node" + id);
+    
     if(name==null) {
+        node.set("shape","record");
         node.set("label","<f0>" + getLabel(label));
     } else {
-        console.log(getLabel[label])
+        node.set("shape","Mrecord");
         node.set("label","<f0>" + name + "| <f1>" + getLabel(label));
     }
-    return id++;
+    id++;
+    return;
 }
 
+/*
 function addEdge(declaration,id1,id2) {
     var edge = id1 + " -> " + id2 + ";";
     return (declaration += edge);
 }
+*/
 
 function getLabel(kind) {
     if(TypeLabel[kind]==null) {
@@ -142,6 +170,32 @@ function getLabel(kind) {
     } else {
         return TypeLabel[kind];
     }
+}
+
+function parse(t, g, name) {
+    var parsed = false;
+    if(t.kind == dCConsts.CXTypeKind["CXType_ConstantArray"]) {
+        parsed = true;
+        addArrayNode(g,name,t.arraySize,t.arrayElementType.kind);
+    } else if(t.kind == dCConsts.CXTypeKind["CXType_Pointer"]) {
+        
+        addDataNode(g,name,t.kind);
+        g.addEdge("node" + (id-1),"node" + id);  
+        parsed = parse(t.pointeeType,g,null); 
+    } else if(t.kind == dCConsts.CXTypeKind["CXType_FunctionProto"]) {
+        parsed = true;
+        addDataNode(g,name,t.kind);
+    } else {
+        parsed = true;
+        for(var i = 0; i < this.type.argTypes; i++) {
+            console.log(
+                'Argument' + i + ':\n' +
+                'Argument Type = ' +dCConsts.CXTypeKind[this.getArgument(i).type.kind]+ '\n' +
+                'Argument Name = ' +this.getArgument(i).spelling);
+        }
+        addDataNode(g,name,t.kind);
+    }
+    return parsed;
 }
 
 function getNavLabel(kind) {
@@ -164,16 +218,17 @@ exports.parser2 =  function (fileName) {
             return;
         } else {
             var g = graphviz.digraph("G");
-            var id = 0;
+            id = 0;
+            cid = 0;
             g.set("rankdir","LR");
             g.set("splines","line");
             g.set("style","filled");
             var parsed = false;
             if(this.kind == dCConsts.CXCursorKind["CXCursor_VarDecl"]) {
-                parsed = true;
-                addDataNode(g,id,null,this.type.kind);
+                parsed = parse(this.type,g,this.spelling);
+            } else if(this.kind == dCConsts.CXCursorKind["CXCursor_FunctionDecl"] && this.spelling!="main") {
+                parsed = parse(this.type,g,this.spelling);
             }
-
             if(parsed) {
                 declObj.decls[i] = {LineNumber:this.location.presumedLocation.line, Name:this.spelling, Type:getNavLabel(this.type.kind), Graph:g.to_dot(), StartColumn: this.location.presumedLocation.column, EndColumn:this.location.presumedLocation.column+this.spelling.length};
                 i++;
