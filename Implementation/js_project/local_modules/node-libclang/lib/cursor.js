@@ -120,6 +120,25 @@ var Cursor = function (instance) {
   this.getArgument = function (index) {
     return new Cursor(lib.clang_Cursor_getArgument(self._instance, index));
   };
+
+  this.getReturn1 = function () {
+    return (lib.clang_getCursorResultType(self._instance));
+  };
+  this.getReturn2 = function () {
+    return new Type(lib.clang_getResultType(self._instance));
+  };
+  this.getReturn3 = function () {
+    return new Type((lib.clang_getResultType(self._instance.type));
+  };
+  this.getReturn4 = function () {
+    return (lib.clang_getCursorReturnType(self._instance));
+  };
+  this.getReturn5 = function () {
+    return new Type(lib.clang_getReturnType(self._instance));
+  };
+  this.getReturn6 = function () {
+    return new Type((lib.clang_getReturnType(self._instance.type));
+  };
 };
 
 Cursor.Break = 0;

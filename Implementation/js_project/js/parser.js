@@ -13,7 +13,8 @@ var TypeLabelNavbar = {
     "13": "Character",
     "101": "Pointer",
     "112": "Array",
-    "22": "Double"
+    "22": "Double",
+    "111": "Function",
 };
 
 var TypeLabel = {
@@ -21,6 +22,7 @@ var TypeLabel = {
     "21": "Decimal\\n(float)",
     "13": "Character\\n(char)",
     "101": "",
+    "111": "",
     "112": "",
     "22": "Precise Decimal\\n(double)"
 };
@@ -107,7 +109,6 @@ exports.parser =  function (fileName) {
 }
 
 function addArrayNode(g,name,size,label) {
-    console.log("array")
     var cluster = g.addCluster("cluster_" + cid);
     cid++;
     cluster.set("style","rounded");
@@ -143,9 +144,7 @@ function addArrayNode(g,name,size,label) {
 }
 
 function addDataNode(g,name,label) {
-    console.log(id);
     var node = g.addNode("node" + id);
-    
     if(name==null) {
         node.set("shape","record");
         node.set("label","<f0>" + getLabel(label));
@@ -157,6 +156,30 @@ function addDataNode(g,name,label) {
     return;
 }
 
+function addFunctionCluster(g,name,inputNum) {
+    var cluster = g.addCluster("cluster_" + cid);
+    cid++;
+    if(inputNum > 1) {
+        var preFuncNode = cluster.addNode("node" + id);
+        preFuncNode.set("shape","point");
+        preFuncNode.set("style","filled");
+        preFuncNode.set("width","0.1");
+        preFuncNode.set("fillcolor","gray60");
+        preFuncNode.set("color","gray60");
+        cluster.addEdge("node" + id, "node" + (id+1));
+        id++;
+    }
+    var funcNode = cluster.addNode("node" + id);
+    if(name==null) {
+        funcNode.set("shape","record");
+        funcNode.set("label","<name>|{<in>IN|<out>OUT}");
+    } else {
+        funcNode.set("shape","record");
+        funcNode.set("label","<name>" + name + "|{<in>IN|<out>OUT}");
+    }
+    id++;
+    return;  
+}
 /*
 function addEdge(declaration,id1,id2) {
     var edge = id1 + " -> " + id2 + ";";
@@ -172,28 +195,41 @@ function getLabel(kind) {
     }
 }
 
-function parse(t, g, name) {
+function parse(obj, g, type) {
     var parsed = false;
-    if(t.kind == dCConsts.CXTypeKind["CXType_ConstantArray"]) {
+    var name;
+    var pType;
+    if(obj==null) {
+        name = null;
+        pType = null;
+    } else {
+        name = obj.spelling;
+        pType = obj.pointeeType;
+    }
+    if(type.kind == dCConsts.CXTypeKind["CXType_ConstantArray"]) {
         parsed = true;
-        addArrayNode(g,name,t.arraySize,t.arrayElementType.kind);
-    } else if(t.kind == dCConsts.CXTypeKind["CXType_Pointer"]) {
-        
-        addDataNode(g,name,t.kind);
+        addArrayNode(g,name,type.arraySize,type.arrayElementType.kind);
+    } else if(type.kind == dCConsts.CXTypeKind["CXType_Pointer"]) {
+        addDataNode(g,name,type.kind);
         g.addEdge("node" + (id-1),"node" + id);  
-        parsed = parse(t.pointeeType,g,null); 
-    } else if(t.kind == dCConsts.CXTypeKind["CXType_FunctionProto"]) {
+        parsed = parse(null,g,type.pointeeType); 
+    } else if(type.kind == dCConsts.CXTypeKind["CXType_FunctionProto"]) {
         parsed = true;
-        addDataNode(g,name,t.kind);
+        var functionID = id;
+        addFunctionCluster(g,name,type.argTypes);
+        var cluster = g.addCluster("cluster_" + cid);
+        cid++;
+        g.addEdge("node" + (id-1), "node" + id); 
+        parse(null,cluster,obj.type.result);
+        for(var i = 0; i < type.argTypes; i++) {
+            var cluster = g.addCluster("cluster_" + cid);
+            cid++;
+            g.addEdge("node" + id,"node" + functionID); 
+            parse(obj.getArgument(i),cluster,obj.getArgument(i).type)
+        }
     } else {
         parsed = true;
-        for(var i = 0; i < this.type.argTypes; i++) {
-            console.log(
-                'Argument' + i + ':\n' +
-                'Argument Type = ' +dCConsts.CXTypeKind[this.getArgument(i).type.kind]+ '\n' +
-                'Argument Name = ' +this.getArgument(i).spelling);
-        }
-        addDataNode(g,name,t.kind);
+        addDataNode(g,name,type.kind);
     }
     return parsed;
 }
@@ -225,9 +261,9 @@ exports.parser2 =  function (fileName) {
             g.set("style","filled");
             var parsed = false;
             if(this.kind == dCConsts.CXCursorKind["CXCursor_VarDecl"]) {
-                parsed = parse(this.type,g,this.spelling);
+                parsed = parse(this,g,this.type);
             } else if(this.kind == dCConsts.CXCursorKind["CXCursor_FunctionDecl"] && this.spelling!="main") {
-                parsed = parse(this.type,g,this.spelling);
+                parsed = parse(this,g,this.type);
             }
             if(parsed) {
                 declObj.decls[i] = {LineNumber:this.location.presumedLocation.line, Name:this.spelling, Type:getNavLabel(this.type.kind), Graph:g.to_dot(), StartColumn: this.location.presumedLocation.column, EndColumn:this.location.presumedLocation.column+this.spelling.length};
@@ -320,6 +356,7 @@ exports.debugParser = function (fileName) {
             'Element Size = '+dCConsts.CXTypeKind[this.type.arrayElementType.kind]+ '\n' +
             'Pointee Type = ' +dCConsts.CXTypeKind[this.pointeeType.kind]+ '\n' +
             'Number of arguments = ' +this.type.argTypes+ '\n' +
+            'Return Type = ' +dCConsts.CXTypeKind[this.type.result.kind]+ '\n' +
             'Line Number = '+this.location.presumedLocation.line+ '\n' +
             'Column Number = '+this.location.presumedLocation.column);
             for(var i = 0; i < this.type.argTypes; i++) {
