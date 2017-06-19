@@ -121,13 +121,13 @@ function addArrayNode(g,name,size,label) {
     var arrayNode = cluster.addNode("node" + id);
     arrayNode.set("shape","record");
     id++;
-
+    console.log(name);
     if(size==0&&name==null) {
-        nameNode.set("label","<f0> | <f1>Unsized")
+        nameNode.set("label","<f0>Unsized")
     } else if(size==0) {
         nameNode.set("label","<f0>" + name + "| <f1>Unsized")
     } else if(name==null) {
-        nameNode.set("label","<f0> | <f1> Size " + size);
+        nameNode.set("label","<f0> Size " + size);
     } else {
         nameNode.set("label","<f0>" + name + "| <f1>Size " + size);
     }
@@ -223,7 +223,14 @@ function parse(obj, g, type) {
         pointerEdge.set("arrowhead","normal");
         pointerEdge.set("color","black");
         pointerEdge.set("style","solid");
-        parsed = parse(null,g,type.pointeeType); 
+        if(type.pointeeType.kind == dCConsts.CXTypeKind["CXType_Unexposed"] && type.pointeeType.canonical.kind == dCConsts.CXTypeKind["CXType_ConstantArray"]) {
+            pointerEdge.set("lhead","cluster_" + cid);
+            parsed = parse(null,g,type.pointeeType.canonical); 
+        } else if(type.pointeeType.kind == dCConsts.CXTypeKind["CXType_Unexposed"]) {
+            parsed = parse(null,g,type.pointeeType.canonical); 
+        } else {
+            parsed = parse(null,g,type.pointeeType); 
+        }
     } else if(type.kind == dCConsts.CXTypeKind["CXType_FunctionProto"]) {
         parsed = true;
         var functionID = id;
@@ -241,6 +248,11 @@ function parse(obj, g, type) {
             cid++;
             g.addEdge("node" + id,"node" + functionID + ":in"); 
             addDataNode(cluster,"&#10060;","NoIn");
+        } else if(type.argTypes == 1) { 
+            var cluster = g.addCluster("cluster_" + cid);
+            cid++;
+            g.addEdge("node" + id,"node" + functionID + ":in"); 
+            parse(obj.getArgument(i),cluster,obj.getArgument(i).type);
         } else {
             for(var i = 0; i < type.argTypes; i++) {
                 var cluster = g.addCluster("cluster_" + cid);
@@ -282,6 +294,7 @@ exports.parser2 =  function (fileName) {
             g.set("splines","line");
             g.set("style","filled");
             g.set("color","gray60");
+            g.set("compound","true");
             g.setNodeAttribut("shape","record");
             g.setNodeAttribut("style","filled");
             g.setNodeAttribut("fillcolor","white");
@@ -385,15 +398,16 @@ exports.debugParser = function (fileName) {
             'Array Size = '+this.type.arraySize+ '\n' +
             'Element Size = '+dCConsts.CXTypeKind[this.type.arrayElementType.kind]+ '\n' +
             'Pointee Type = ' +dCConsts.CXTypeKind[this.pointeeType.kind]+ '\n' +
+            'Canon Type = ' +dCConsts.CXTypeKind[this.pointeeType.canonical.result.kind]+ '\n' +
             'Number of arguments = ' +this.type.argTypes+ '\n' +
             'Return Type = ' +dCConsts.CXTypeKind[this.type.result.kind]+ '\n' +
             'Line Number = '+this.location.presumedLocation.line+ '\n' +
             'Column Number = '+this.location.presumedLocation.column);
-            for(var i = 0; i < this.type.argTypes; i++) {
+            for(var i = 0; i < this.pointeeType.canonical.argTypes; i++) {
                 console.log(
-                    'Argument' + i + ':\n' +
-                    'Argument Type = ' +dCConsts.CXTypeKind[this.getArgument(i).type.kind]+ '\n' +
-                    'Argument Name = ' +this.getArgument(i).spelling);
+                    'Argument' + i + ':\n' );
+                    //'Argument Type = ' +dCConsts.CXTypeKind[this.Recurse.type.kind]+ '\n' +
+                    //'Argument Name = ' +this.Recurse);
             }
             console.log('-----------');      
             return Cursor.Recurse;

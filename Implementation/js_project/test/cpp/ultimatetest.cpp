@@ -32,8 +32,6 @@ void foo8(int x4);
 char foo9(int, float);
 int foo10(void);
 void foo11();
-int (*foo12)();
-int (*foo13)(int x5, float x6);
 int *foo14();
 int *foo15(int x7, float x8);
 void foo16(int x9[10]);
@@ -41,5 +39,9 @@ void foo17(int x10[]);
 int *foo18(int x11, float x12);
 
 char *foo19[10];
+char (*foo22)[10];
+
+int (*foo12)();
+int (*foo13)(int x5, float x6);
 int (*foo20)[10];
 char *(*foo21)(int, float *);
