@@ -121,7 +121,6 @@ function addArrayNode(g,name,size,label) {
     var arrayNode = cluster.addNode("node" + id);
     arrayNode.set("shape","record");
     id++;
-    console.log(name);
     if(size==0&&name==null) {
         nameNode.set("label","<f0>Unsized")
     } else if(size==0) {

@@ -1,3 +1,3 @@
-char (*foo22)[10];
+int* foo;
 
 int main() {}
