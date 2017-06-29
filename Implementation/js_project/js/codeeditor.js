@@ -69,6 +69,6 @@ function printCode() {
         }
         console.log("STRING TO FILE TO PARSER");
         console.log("------");
-        console.log(JSON.stringify(parser.parser2(tempFileName), null, 2));
+        console.log(JSON.stringify(parser.parser(tempFileName), null, 2));
     }); 
 }

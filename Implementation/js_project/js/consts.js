@@ -10,7 +10,7 @@ var DEBUGFLAGS = {
 // DEBUG = 0 is production (No QUnit, No Printing)
 // DEBUG = 1 runs QUnit
 // DEBUG = 2 runs QUnit, and allows prints through debugParser
-const DEBUG = 0*DEBUGFLAGS.QUNIT | 0*DEBUGFLAGS.PRINT | DEBUGFLAGS.TESTFILE;
+const DEBUG = 0*DEBUGFLAGS.QUNIT | 0*DEBUGFLAGS.PRINT | 0*DEBUGFLAGS.TESTFILE;
 
 Object.defineProperty(exports, "DEBUGFLAGS", {
     value:        DEBUGFLAGS,

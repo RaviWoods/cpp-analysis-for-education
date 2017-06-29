@@ -61,56 +61,6 @@ var contains = function(needle) {
     return indexOf.call(this, needle) > -1;
 };
 
-exports.parser =  function (fileName) {
-    var declObj = {decls: []};
-    var i = 0;
-    var index = new Index(true, true);
-    var tu = new TranslationUnit.fromSource(index, fileName, [
-    '-xc++',
-    ]);
-    tu.cursor.visitChildren(function (parent) {
-        if(this.spelling == "__llvm__") {
-            return;
-        } else {
-                if(this.kind == dCConsts.CXCursorKind["CXCursor_VarDecl"]) {
-                    declObj.decls[i] = {Name:this.spelling, LineNumber: this.location.presumedLocation.line, Type:dCConsts.CXTypeKind[this.type.kind]}
-                    currentJSONElement = declObj.decls[i];
-                    currentParserElement = this.type;
-                    while((currentParserElement.kind == dCConsts.CXTypeKind["CXType_ConstantArray"])||(currentParserElement.kind == dCConsts.CXTypeKind["CXType_Pointer"])) {
-                        if (currentParserElement.kind == dCConsts.CXTypeKind["CXType_ConstantArray"]) {
-                            currentJSONElement.Type = dCConsts.CXTypeKind[currentParserElement.kind]
-                            currentJSONElement.ArraySize = currentParserElement.arraySize;
-                            currentJSONElement.ElementType = dCConsts.CXTypeKind[currentParserElement.arrayElementType.kind];
-                            currentJSONElement = currentJSONElement.ElementType;
-                            currentParserElement = currentParserElement.arrayElementType;    
-                            if(fileName == './test/cpp/C5.cpp') {
-                                consts.debugPrint("array parser",null)
-                            }
-                        } else if(currentParserElement.kind == dCConsts.CXTypeKind["CXType_Pointer"]) {
-
-                            currentJSONElement.Type = dCConsts.CXTypeKind[currentParserElement.kind]
-                            currentParserElement = currentParserElement.pointeeType; 
-                            currentJSONElement.PointeeType = {Type:dCConsts.CXTypeKind[currentParserElement.kind]}
-                            if(fileName == './test/cpp/C5.cpp') {
-                                consts.debugPrint("parser parser",null)
-                            }
-                            currentJSONElement = currentJSONElement.PointeeType;
-                        }
-                        if(fileName == './test/cpp/C5.cpp') {
-                            consts.debugPrint(dCConsts.CXTypeKind[currentParserElement.kind],null)
-                        }
-                    }
-                    i++;
-                }
-                return Cursor.Recurse;
-            
-        }
-    });
-    return declObj;
-    index.dispose();
-    tu.dispose;
-    
-}
 
 function addArrayNode(g,name,size,label,constant) {
     var cluster = g.addCluster("cluster_" + cid);
@@ -339,17 +289,8 @@ function getNavLabel(kind) {
     }
 }
 
-/*
-exports.addConsts = function addConsts() {
-    console.log("Title");
-    console.log(document.getElementById("graph0"));
-    for( i in constEdges) {
-        console.log($("title:contains('" + constEdges[i] + "')").parent().find("text").text());
-    }
-}
-*/
 
-exports.parser2 =  function (fileName) {
+exports.parser =  function (fileName) {
     var declObj = {decls:[]};
     //constEdges = [];
     var i = 0;
@@ -393,66 +334,6 @@ exports.parser2 =  function (fileName) {
     index.dispose();
     tu.dispose;
 }
-
-/*
-exports.parser2 =  function (fileName) {
-    var declObj = {decls:[]};
-    var boilerPlate = "digraph G { rankdir=LR; splines=ortho;compound=true;graph[style=\"filled\",fillcolor=\"cadetblue1\"]; node [shape=box,style=\"filled\", fillcolor=\"white\"];";
-    var i = 0;
-    var index = new Index(true, true);
-    var tu = new TranslationUnit.fromSource(index, fileName, [
-    '-xc++',
-    ]);
-    tu.cursor.visitChildren(function (parent) {
-        if(this.spelling == "__llvm__") {
-            return;
-        } else {
-            var parsed = false;
-            var declaration = boilerPlate;
-            if(this.kind == dCConsts.CXCursorKind["CXCursor_VarDecl"]) {
-                currentParserElement = this.type;
-                if(currentParserElement.kind == dCConsts.CXTypeKind["CXType_ConstantArray"]) {
-                    parsed = true;
-                    var id = 1;
-                    declObj.decls[i] = {LineNumber:this.location.presumedLocation.line, Graph:declaration};
-                    declaration = addArrayNode(declaration,id,TypeLabels[currentParserElement.arrayElementType.kind], currentParserElement.arraySize,this.spelling);
-                    id++;
-                } else if (currentParserElement.kind == dCConsts.CXTypeKind["CXType_Pointer"]) {
-                    parsed = true;
-                    var id = 1;
-                    declaration = addNode(declaration,id,this.spelling);
-                    id++;
-                    declObj.decls[i] = {LineNumber:this.location.presumedLocation.line, Graph:declaration};
-                    while(currentParserElement.kind == dCConsts.CXTypeKind["CXType_Pointer"]) {
-                        currentParserElement = currentParserElement.pointeeType; 
-                        declaration = addNode(declaration,id,TypeLabels[currentParserElement.kind]);
-                        declaration = addEdge(declaration,id-1,id);
-                        id++;
-                    }
-                } else {
-                    parsed = true;
-                    declaration = addNode(declaration,2,this.spelling,currentParserElement.kind);
-                }
-            } else if(this.kind == dCConsts.CXCursorKind["CXCursor_FunctionDecl"]) {
-                //parsed = true;
-                //for(var i = 0; i < this.type.argTypes; i++) {
-                //}
-            }
-
-            if(parsed) {
-                console.log("parsed")
-                declaration = declaration += "}";
-                declObj.decls[i] = {LineNumber:this.location.presumedLocation.line, Name:this.spelling, Type:TypeLabelNavbar[this.type.kind], Graph:declaration, StartColumn: this.location.presumedLocation.column, EndColumn:this.location.presumedLocation.column+this.spelling.length};
-                i++;
-            }
-            return Cursor.Recurse;
-        }
-    });
-    return declObj;
-    index.dispose();
-    tu.dispose;
-}
-*/
 
 exports.debugParser = function (fileName) {
     console.log("Debug Parser with file path = " +  fileName);

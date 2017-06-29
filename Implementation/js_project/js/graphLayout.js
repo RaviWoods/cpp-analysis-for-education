@@ -12,7 +12,7 @@ var pageY;
 
 exports.layoutGraph =  function (tempFileName) {
     fileName = tempFileName;
-    graphObj = parser.parser2(tempFileName);
+    graphObj = parser.parser(tempFileName);
     var x = false;
     codeEditor.decorations = codeEditor.editor.deltaDecorations(codeEditor.decorations, []);
     decorationsList = [];
@@ -22,7 +22,6 @@ exports.layoutGraph =  function (tempFileName) {
             x = true;
             document.getElementById("graph-container").innerHTML = viz(graphObj.decls[i].Graph);
             document.getElementById("decl-name").innerHTML = "Declaration of the " + graphObj.decls[i].Type + ", called " + graphObj.decls[i].Name;
-            //parser.addConsts();
             decorationsList.push({
                 range: new monaco.Range(graphObj.decls[i].LineNumber,graphObj.decls[i].StartColumn,graphObj.decls[i].LineNumber,graphObj.decls[i].EndColumn),
                 options: {inlineClassName: 'decl-selected'}
@@ -48,7 +47,6 @@ exports.showGraph = function(lineNumber,columnNumber) {
             currentVar = graphObj.decls[i].Name;
             document.getElementById("graph-container").innerHTML = viz(graphObj.decls[i].Graph);
             document.getElementById("decl-name").innerHTML = "Declaration of the " + graphObj.decls[i].Type + ", called " + graphObj.decls[i].Name;
-            //parser.addConsts();
         }
     }
     codeEditor.decorations = codeEditor.editor.deltaDecorations(codeEditor.decorations, []);
