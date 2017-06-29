@@ -1,6 +1,10 @@
 $( document ).ready(function() {  
-    //console.log("Window Ready!")
+    $('#code-container').resize(function(){
+    console.log("hello");
+    });
 });
+
+
 
 var width = $(window).width();
 $(window).on('resize', function(){

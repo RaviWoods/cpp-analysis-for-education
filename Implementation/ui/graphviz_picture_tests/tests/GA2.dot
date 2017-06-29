@@ -1,0 +1,27 @@
+digraph g {
+    rankdir=LR; 
+    splines=line;
+    compound=true;
+    graph[style="filled",color="gray60"];
+    node [shape=record,style="filled", fillcolor="white"];
+    subgraph cluster_2 {
+		"node0" [
+            label = "<f0>Size 10";
+            shape = "Mrecord";
+
+        ];
+		"node1" [
+            label = "<f0>Integer\n(int)| <f1>...| <f2>";
+            shape = "record";
+            
+        ];
+        style=rounded;
+        color=grey90;
+	}
+		"node2" [
+            label = "<f0> foo| <f1> ";
+            shape = "Mrecord";
+
+        ];
+    node2:f1-> node0 [lhead=cluster_2]; 
+}

@@ -22,12 +22,7 @@ self.process.browser = true;
 
 amdRequire(['vs/editor/editor.main'], function() {
     editor = monaco.editor.create(document.getElementById('code-container'), {
-        value: [
-            'int main() {',
-            '\tint x;',
-            '\treturn 0;',
-            '}'
-        ].join('\n'),
+        value: ['int main() {\n\tint x;\n\treturn 0;\n}'].join('\n'),
         language: 'cpp',
         theme: "vs-dark",
         fontSize: 18
@@ -43,10 +38,17 @@ amdRequire(['vs/editor/editor.main'], function() {
     editor.onMouseMove(function (e) {
         graphing.showTip(e.target.range.startLineNumber,e.target.range.startColumn);
     });
+
     runGraphEngine();
     var decorations = editor.deltaDecorations([], []);
     exports.decorations = decorations;
     exports.editor = editor;
+});
+
+$( document ).ready(function() { 
+    setInterval(function() {
+        editor.layout();
+    }, 100);
 });
 
 function runGraphEngine() {

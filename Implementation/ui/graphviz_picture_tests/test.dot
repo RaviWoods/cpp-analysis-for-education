@@ -1,0 +1,17 @@
+digraph G {
+    rankdir=LR;
+    edge[arrowhead="open",penwidth= "1"];
+    node [shape=box];
+    1 [label="foo"];
+
+    subgraph cluster2 {
+        color=grey90;
+        style=rounded;
+        2 [label = "<f0>| <f1>...| <f2>";
+        shape = "record"];
+        label = "Size 10";
+    }
+    3[label="Integer"];
+    1 -> 2;
+    2 -> 3;
+}

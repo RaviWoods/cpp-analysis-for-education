@@ -55,7 +55,7 @@ svg {
 
 .decl-unselected {
   cursor:pointer !important;
-  background-color: var(--bluetranscm);
+  background-color: var(--yellowtranscm);
 }
 
 #code-container {
@@ -64,6 +64,7 @@ svg {
   padding: 0;
   height: 600px;
   margin: 8px 4px 8px 8px;
+  width: 100%;
 }
 
 #graph-box {

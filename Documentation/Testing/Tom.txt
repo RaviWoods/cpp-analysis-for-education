@@ -1,0 +1,8 @@
+Didn't understand blank pointer
+Found graphs much easier to understand
+Understanding of const clicked with the lock symbol
+Initially conflated int* x[10] and int x[10]
+
+Didn't recognise highlighted declarations were clickable
+Highlighted declarations looked just like syntax highlighting.
+Liked how declarations were immediately highlighted

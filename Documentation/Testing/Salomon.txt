@@ -1,0 +1,9 @@
+
+Box shown on hover made it obvious what clicking does
+
+Lock signs initially confusing, clicked after a couple of seconds
+Often had a conflict between what the diagram said and what the declaration said 
+Initially, a difficulty in the diagram regarding arrays and pointers
+Very intuitive
+Immediate understanding of two arrow types
+Didn't understand empty boxes in pointer declarations

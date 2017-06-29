@@ -1,0 +1,11 @@
+Understood that highlighted declarations were clickable
+Box shown on hover was not annoying
+
+Basic cases seemed clear and easy to read
+Diagrams help in every way
+Can read the text, but visualization has much quicker understanding
+Difficulty with Arrays of pointers in diagrams
+Found complex declarations slow (but not impossible) to read on diagram
+Layout of function pointers is odd and not immediately obvious
+Locks definitely made sense with constants
+Would be better with a key

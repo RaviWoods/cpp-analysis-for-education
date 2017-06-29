@@ -57,13 +57,6 @@ var Type = function (instance) {
     }
   });
 
-  Object.defineProperty(this, 'numArgTypes', {
-    get: function () {
-      return lib.clang_getNumArgTypes(self._instance);
-    }
-  });
-
-
   Object.defineProperty(this, 'resultType', {
     get: function () {
       return new Type(lib.clang_getResultType(self._instance));
@@ -80,12 +73,6 @@ var Type = function (instance) {
   Object.defineProperty(this, 'pointeeType', {
     get: function () {
       return new Type(lib.clang_getPointeeType(self._instance));
-    }
-  });
-
-  Object.defineProperty(this, 'arraySize', {
-    get: function () {
-      return new Type(lib.clang_getArraySize(self._instance));
     }
   });
 
@@ -112,14 +99,26 @@ var Type = function (instance) {
       return lib.clang_getArraySize(self._instance);
     }
   });
+  
+  Object.defineProperty(this, 'argTypes', {
+    get: function () {
+      return lib.clang_getNumArgTypes(self._instance);
+    }
+  });
 
   this.getArg = function (arg) {
     return new Type(lib.clang_getArgType(self._instance, arg));
   };
 
   this.isPOD = function () {
+    //return lib.clang_isConstQualifiedType(self._instance) === 1 ? true : false;
     return lib.clang_isPODType(self._instance) === 1 ? true : false;
   };
+  this.isConst = function () {
+    return lib.clang_isConstQualifiedType(self._instance) === 1 ? true : false;
+    //return lib.clang_isPODType(self._instance) === 1 ? true : false;
+  };
+
 };
 
 Object.keys(consts.CXTypeKind).forEach(function (key) {

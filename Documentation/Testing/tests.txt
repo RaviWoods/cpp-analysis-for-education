@@ -1,0 +1,64 @@
+SECTION 2
+void para(int*)
+char* aspa(float)
+int stim(float saxo, int ator)
+char expa(double, int)
+int stal()
+
+char mult()
+declare mult as function returning char
+
+int* indo(int)
+declare indo as function (pointer to int) returning int
+
+float iter(int, double)
+declare iter as function (int, double) returning float
+
+void sult(float*)
+declare sult as function (pointer to float) returning void
+
+double* ast(char)
+void pris(char*) 
+int milt(char, char)
+double clim(char brib, double cari)
+float texa()
+---
+
+SECTION 3
+char *trom[7]
+int (*rota)(float, double, int)
+char const ** const gera
+char sund(int&, float)
+
+int (*ster)[4]
+declare ster as pointer to array 4 of int
+
+char (*blin)(int)
+declare blin as pointer to function (int) returning char
+
+char * const * stic
+declare stic as pointer to const pointer to char
+
+int culm(double, double&)
+declare culm as function (double, reference to double) returning int
+
+TODO IN MINE
+char (*ovar)[5]
+char const * const *  drud
+
+double (*imen)(char, double) 
+
+
+---
+SECTION 4
+int (*holl(float))(char) 
+char slin(int, int(*nort)())
+
+
+TODO CDECL
+char (*holl())(int*) 
+
+TODO IN MINE`
+char (*mech(float, int, void (*oper)(int)))()
+double tern(void(*bost)(int), char)
+float (*holl(double, char))(float) 

@@ -38,4 +38,4 @@ if(consts.DEBUG & consts.DEBUGFLAGS.TESTFILE) {
     console.log("***ENDOFDEBUGPARSER***");
     console.log(JSON.stringify(parser.parser2(consts.CPPTESTDIR + '/testfile.cpp'),null,2))
     console.log("***ENDOFPROPERPARSE***");
-} 
+}

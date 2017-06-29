@@ -16,11 +16,13 @@ exports.layoutGraph =  function (tempFileName) {
     var x = false;
     codeEditor.decorations = codeEditor.editor.deltaDecorations(codeEditor.decorations, []);
     decorationsList = [];
+    
     for (i in graphObj.decls) {
         if(graphObj.decls[i].Name == currentVar) {
             x = true;
             document.getElementById("graph-container").innerHTML = viz(graphObj.decls[i].Graph);
             document.getElementById("decl-name").innerHTML = "Declaration of the " + graphObj.decls[i].Type + ", called " + graphObj.decls[i].Name;
+            //parser.addConsts();
             decorationsList.push({
                 range: new monaco.Range(graphObj.decls[i].LineNumber,graphObj.decls[i].StartColumn,graphObj.decls[i].LineNumber,graphObj.decls[i].EndColumn),
                 options: {inlineClassName: 'decl-selected'}
@@ -46,7 +48,7 @@ exports.showGraph = function(lineNumber,columnNumber) {
             currentVar = graphObj.decls[i].Name;
             document.getElementById("graph-container").innerHTML = viz(graphObj.decls[i].Graph);
             document.getElementById("decl-name").innerHTML = "Declaration of the " + graphObj.decls[i].Type + ", called " + graphObj.decls[i].Name;
-
+            //parser.addConsts();
         }
     }
     codeEditor.decorations = codeEditor.editor.deltaDecorations(codeEditor.decorations, []);
@@ -73,13 +75,19 @@ $("body").mousemove(function(e) {
 })
 
 exports.showTip = function(lineNumber,columnNumber) {
-    if(lineNumber == graphObj.decls[0].LineNumber && columnNumber <= graphObj.decls[0].EndColumn && columnNumber >= graphObj.decls[0].StartColumn) {
-        $(".hidepopUp").show();         
-        $(".hidepopUp").css({             
-            top: (pageY+10) + "px",             
-            left: (pageX+10) + "px"         
-        });     
-    } else {
+    var show = false;
+    for (i in graphObj.decls) {
+        if(lineNumber == graphObj.decls[i].LineNumber && columnNumber <= graphObj.decls[i].EndColumn && columnNumber >= graphObj.decls[i].StartColumn) {
+            show = true;
+            $(".hidepopUp").show();         
+            $(".hidepopUp").css({             
+                top: (pageY+10) + "px",             
+                left: (pageX+10) + "px"         
+            });     
+        }
+    }
+    
+    if(!show) {
         $(".hidepopUp").hide(); 
     }
 }

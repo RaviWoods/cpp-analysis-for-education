@@ -1,8 +1,0 @@
-digraph G {
-    rank=lr;
-    edge[arrowhead="open",penwidth ="1"]
-    node [shape=box]
-
-    int -> x;
-
-}
