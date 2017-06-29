@@ -1,4 +1,4 @@
-# A Visual C++ Analysis for Educational Use
+# A Visual C++ Analysis Tool for Educational Use
 
 A tool to visualise C/C++ declarations as graphs, produced as a Final Year Project for a BEng in Electronic and Information Engineering at Imperial College London
 
