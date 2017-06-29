@@ -4,7 +4,7 @@ A tool to visualise C/C++ declarations as graphs, produced as a Final Year Proje
 
 ## Download
 
-Currently, the tool is Mac only, owing to issues with Dynamic Libraries in LibClang. The tool can be downloaded for Mac [here](http://bit.ly/2sdx6Ud). 
+Currently, the tool is Mac only, owing to issues with Dynamic Libraries in LibClang. The tool can be downloaded for Mac [here](http://bit.ly/2u27kj1). 
 
 If there are issues owing to the app being from an 'unidentified developer', troubleshooting steps can be found [here](https://support.apple.com/kb/ph18657?locale=en_US)
 
